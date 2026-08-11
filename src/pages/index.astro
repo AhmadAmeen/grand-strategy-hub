@@ -1,48 +1,146 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('articles')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const latest = posts.slice(0, 6);
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: 960px;
+			}
+			.hero {
+				text-align: center;
+				padding: 3em 1em;
+			}
+			.hero h1 {
+				font-size: 2.5em;
+				margin: 0 0 0.5em 0;
+			}
+			.hero p {
+				font-size: 1.2em;
+				color: rgb(var(--gray));
+				max-width: 600px;
+				margin: 0 auto;
+			}
+			.categories {
+				display: flex;
+				justify-content: center;
+				gap: 1em;
+				flex-wrap: wrap;
+				margin: 2em 0;
+			}
+			.categories a {
+				padding: 0.75em 1.5em;
+				border-radius: 8px;
+				background: rgb(var(--accent));
+				color: white;
+				text-decoration: none;
+				font-weight: bold;
+			}
+			.categories a:hover {
+				opacity: 0.85;
+			}
+			.latest {
+				margin-top: 2em;
+			}
+			.latest h2 {
+				text-align: center;
+			}
+			ul {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2rem;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			ul li {
+				width: calc(50% - 1rem);
+			}
+			ul li * {
+				text-decoration: none;
+				transition: 0.2s ease;
+			}
+			ul li a {
+				display: block;
+			}
+			.title {
+				margin: 0;
+				color: rgb(var(--black));
+				line-height: 1;
+			}
+			.date {
+				margin: 0;
+				color: rgb(var(--gray));
+			}
+			.category {
+				display: inline-block;
+				margin: 0.5em 0;
+				padding: 0.2em 0.6em;
+				border-radius: 4px;
+				background: rgb(var(--accent));
+				color: white;
+				font-size: 0.8em;
+			}
+			ul li a:hover h4,
+			ul li a:hover .date {
+				color: rgb(var(--accent));
+			}
+			@media (max-width: 720px) {
+				ul {
+					gap: 0.5em;
+				}
+				ul li {
+					width: 100%;
+					text-align: center;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="hero">
+				<h1>Grand Strategy Hub</h1>
+				<p>
+					In-depth guides and mechanics explainers for Europa Universalis IV, Europa
+					Universalis V, and Crusader Kings III.
+				</p>
+				<div class="categories">
+					<a href="/category/eu5">EU5 Guides</a>
+					<a href="/category/eu4">EU4 Guides</a>
+					<a href="/category/ck3">CK3 Guides</a>
+					<a href="/category/comparisons">Comparisons</a>
+				</div>
+			</section>
+			<section class="latest">
+				<h2>Latest Guides</h2>
+				<ul>
+					{latest.map((post) => (
+						<li>
+							<a href={`/blog/${post.data.slug}/`}>
+								<h4 class="title">{post.data.title}</h4>
+								<span class="category">{post.data.category}</span>
+								<p class="date">
+									<FormattedDate date={post.data.date} />
+								</p>
+							</a>
+						</li>
+					))}
+				</ul>
+			</section>
 		</main>
 		<Footer />
 	</body>

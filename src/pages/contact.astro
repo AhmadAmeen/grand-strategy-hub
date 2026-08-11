@@ -1,0 +1,42 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Contact | Grand Strategy Hub" description="Get in touch with Grand Strategy Hub." />
+		<style>
+			main {
+				width: 720px;
+			}
+			h1 {
+				margin-bottom: 1em;
+			}
+			p {
+				line-height: 1.7;
+				margin-bottom: 1.5em;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Contact</h1>
+			<p>
+				Have a question about a guide, spotted an error, or want to suggest a topic? We'd
+				love to hear from you.
+			</p>
+			<p>
+				Email us at: <a href="mailto:contact@grandstrategyhub.com">contact@grandstrategyhub.com</a>
+			</p>
+			<p>
+				Please note: Grand Strategy Hub is not affiliated with or endorsed by Paradox
+				Interactive. We cannot provide official support for any Paradox game.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
