@@ -1,0 +1,378 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Which Paradox Game Should You Play? | Grand Strategy Hub" description="Not sure whether to start with EU4, EU5, or CK3? Take this quiz to find out which Paradox grand strategy game matches your playstyle." />
+		<style>
+			.quiz-container {
+				max-width: 720px;
+				margin: 0 auto;
+			}
+			h1 {
+				text-align: center;
+				margin-bottom: 0.5em;
+				background: linear-gradient(135deg, var(--accent) 0%, #f0d48a 50%, var(--accent) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+			.subtitle {
+				text-align: center;
+				color: var(--text-secondary);
+				margin-bottom: 2em;
+			}
+			.progress-bar {
+				height: 6px;
+				background: var(--bg-secondary);
+				border-radius: 3px;
+				margin-bottom: 2em;
+				overflow: hidden;
+			}
+			.progress-fill {
+				height: 100%;
+				background: linear-gradient(90deg, var(--accent), #f0d48a);
+				border-radius: 3px;
+				transition: width 0.3s ease;
+			}
+			.question {
+				display: none;
+				animation: fadeIn 0.4s ease-out;
+			}
+			.question.active {
+				display: block;
+			}
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(10px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+			.question h2 {
+				font-size: 1.4em;
+				margin-bottom: 0.3em;
+				color: var(--text-primary);
+			}
+			.question-count {
+				color: var(--text-muted);
+				font-size: 0.85em;
+				margin-bottom: 1.5em;
+			}
+			.options {
+				display: flex;
+				flex-direction: column;
+				gap: 1em;
+			}
+			.option {
+				padding: 1.25em 1.5em;
+				background: var(--bg-card);
+				border: 1px solid var(--border-color);
+				border-radius: 10px;
+				cursor: pointer;
+				transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+				color: var(--text-secondary);
+				font-size: 1em;
+				text-align: left;
+				font-family: inherit;
+			}
+			.option:hover {
+				border-color: var(--accent);
+				background: var(--bg-hover);
+				transform: translateY(-2px);
+				color: var(--text-primary);
+			}
+			.option:active {
+				transform: translateY(0);
+			}
+			.result {
+				display: none;
+				text-align: center;
+				padding: 2em;
+				background: var(--bg-card);
+				border: 1px solid var(--border-color);
+				border-radius: 16px;
+				animation: fadeIn 0.5s ease-out;
+			}
+			.result.show {
+				display: block;
+			}
+			.result .result-label {
+				font-size: 0.9em;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--text-muted);
+				margin-bottom: 0.5em;
+			}
+			.result .result-game {
+				display: inline-block;
+				padding: 0.4em 1.2em;
+				border-radius: 8px;
+				font-size: 2em;
+				font-weight: 700;
+				margin-bottom: 1em;
+			}
+			.result .result-game.eu4 {
+				background: rgba(74, 125, 255, 0.15);
+				color: var(--cat-eu4);
+				border: 1px solid rgba(74, 125, 255, 0.3);
+			}
+			.result .result-game.eu5 {
+				background: rgba(45, 212, 191, 0.15);
+				color: var(--cat-eu5);
+				border: 1px solid rgba(45, 212, 191, 0.3);
+			}
+			.result .result-game.ck3 {
+				background: rgba(224, 82, 82, 0.15);
+				color: var(--cat-ck3);
+				border: 1px solid rgba(224, 82, 82, 0.3);
+			}
+			.result p {
+				color: var(--text-secondary);
+				max-width: 500px;
+				margin: 0 auto 1.5em auto;
+			}
+			.result-links {
+				display: flex;
+				justify-content: center;
+				gap: 1em;
+				flex-wrap: wrap;
+				margin-top: 1.5em;
+			}
+			.result-links a {
+				padding: 0.6em 1.2em;
+				background: var(--bg-secondary);
+				border: 1px solid var(--border-light);
+				border-radius: 8px;
+				color: var(--text-primary);
+				text-decoration: none;
+				font-size: 0.9em;
+				transition: border-color 0.2s ease, color 0.2s ease;
+			}
+			.result-links a:hover {
+				border-color: var(--accent);
+				color: var(--accent);
+			}
+			.restart-btn {
+				margin-top: 2em;
+				padding: 0.6em 1.5em;
+				background: transparent;
+				border: 1px solid var(--border-light);
+				border-radius: 8px;
+				color: var(--text-secondary);
+				cursor: pointer;
+				font-size: 0.9em;
+				font-family: inherit;
+				transition: border-color 0.2s ease, color 0.2s ease;
+			}
+			.restart-btn:hover {
+				border-color: var(--accent);
+				color: var(--accent);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="quiz-container" id="quiz">
+				<h1>Which Paradox Game Should You Play?</h1>
+				<p class="subtitle">Answer six quick questions and we'll recommend the perfect grand strategy game for you.</p>
+
+				<div class="progress-bar">
+					<div class="progress-fill" id="progressFill" style="width: 0%"></div>
+				</div>
+
+				<!-- Question 1 -->
+				<div class="question active" data-question="0">
+					<p class="question-count">Question 1 of 6</p>
+					<h2>What draws you to strategy games?</h2>
+					<div class="options">
+						<button class="option" data-game="ck3">Characters, relationships, and dynasties — I love stories about people</button>
+						<button class="option" data-game="eu4">Growing a nation's power through war, trade, and diplomacy</button>
+						<button class="option" data-game="eu5">Trying the latest and most modern grand strategy mechanics</button>
+					</div>
+				</div>
+
+				<!-- Question 2 -->
+				<div class="question" data-question="1">
+					<p class="question-count">Question 2 of 6</p>
+					<h2>Do you prefer playing as a person or a nation?</h2>
+					<div class="options">
+						<button class="option" data-game="ck3">A ruler with a family, personal ambitions, and a dynasty to build</button>
+						<button class="option" data-game="eu4">A nation with its own identity, borders, and goals</button>
+						<button class="option" data-game="eu5">A nation — but with deeper internal management like populations</button>
+					</div>
+				</div>
+
+				<!-- Question 3 -->
+				<div class="question" data-question="2">
+					<p class="question-count">Question 3 of 6</p>
+					<h2>How patient are you with learning complex systems?</h2>
+					<div class="options">
+						<button class="option" data-game="eu4">I want the deepest, most complex systems — I'll learn them</button>
+						<button class="option" data-game="eu5">I want something modern and streamlined that's easier to pick up</button>
+						<button class="option" data-game="ck3">I want to be immersed in stories almost immediately</button>
+					</div>
+				</div>
+
+				<!-- Question 4 -->
+				<div class="question" data-question="3">
+					<p class="question-count">Question 4 of 6</p>
+					<h2>What's your favorite historical fantasy?</h2>
+					<div class="options">
+						<button class="option" data-game="ck3">Medieval intrigue, betrayal, and family drama</button>
+						<button class="option" data-game="eu4">Building a vast empire over centuries of history</button>
+						<button class="option" data-game="eu5">A fresh, modern take on the classic era</button>
+					</div>
+				</div>
+
+				<!-- Question 5 -->
+				<div class="question" data-question="4">
+					<p class="question-count">Question 5 of 6</p>
+					<h2>How much time do you have per gaming session?</h2>
+					<div class="options">
+						<button class="option" data-game="ck3">Short sessions — I like focused gameplay on one character</button>
+						<button class="option" data-game="eu4">Long campaigns I can sink into for hours</button>
+						<button class="option" data-game="eu5">Both — I want flexibility in how I play</button>
+					</div>
+				</div>
+
+				<!-- Question 6 -->
+				<div class="question" data-question="5">
+					<p class="question-count">Question 6 of 6</p>
+					<h2>What matters most to you in a game?</h2>
+					<div class="options">
+						<button class="option" data-game="ck3">Characters and storytelling</button>
+						<button class="option" data-game="eu4">Depth and a decade of content</button>
+						<button class="option" data-game="eu5">Innovation and being part of something new</button>
+					</div>
+				</div>
+
+				<!-- Result -->
+				<div class="result" id="result">
+					<p class="result-label">You should play</p>
+					<div class="result-game" id="resultGame">CK3</div>
+					<p id="resultText"></p>
+					<div class="result-links" id="resultLinks"></div>
+					<button class="restart-btn" onclick="restartQuiz()">↺ Take the quiz again</button>
+				</div>
+			</div>
+		</main>
+		<Footer />
+
+		<script>
+			const questions = document.querySelectorAll('.question');
+			const progressFill = document.getElementById('progressFill');
+			const resultEl = document.getElementById('result');
+			const resultGame = document.getElementById('resultGame');
+			const resultText = document.getElementById('resultText');
+			const resultLinks = document.getElementById('resultLinks');
+
+			let currentQuestion = 0;
+			const scores = { eu4: 0, eu5: 0, ck3: 0 };
+
+			const RESULTS = {
+				eu4: {
+					name: 'EU4',
+					text: "Europa Universalis IV is the definitive Paradox grand strategy experience. It's deep, content-rich, and offers centuries of replay value. The learning curve is steep, but the payoff is unmatched — you'll be building world-spanning empires in no time.",
+					links: [
+						{ label: 'EU4 Beginner Mistakes', href: '/blog/eu4-beginner-mistakes/' },
+						{ label: 'Best EU4 DLC', href: '/blog/best-eu4-dlc/' },
+						{ label: 'EU4 Achievements', href: '/blog/eu4-achievement-guide/' },
+					],
+				},
+				eu5: {
+					name: 'EU5',
+					text: "Europa Universalis V is the future of the series — with its modern mechanics, pop system, and fresh take on grand strategy. It's the perfect pick if you want to be part of the community from the ground up and grow with the game as new DLC arrives.",
+					links: [
+						{ label: 'EU5 vs EU4 Guide', href: '/blog/' },
+						{ label: 'EU5 Trade Guide', href: '/blog/' },
+						{ label: 'DLC Release Tracker', href: '/blog/paradox-dlc-release-schedule-2026/' },
+					],
+				},
+				ck3: {
+					name: 'CK3',
+					text: "Crusader Kings III is the most approachable Paradox game — and the most personal. You'll play as characters, build a dynasty, and get lost in stories of marriage, betrayal, and ambition. It's the perfect entry point into grand strategy.",
+					links: [
+						{ label: 'Best CK3 Starting Characters', href: '/blog/ck3-best-starting-character/' },
+						{ label: 'CK3 Succession Guide', href: '/blog/ck3-succession-laws/' },
+						{ label: 'CK3 Intrigue Guide', href: '/blog/ck3-intrigue-guide/' },
+					],
+				},
+			};
+
+			function updateProgress() {
+				const pct = (currentQuestion / questions.length) * 100;
+				progressFill.style.width = pct + '%';
+			}
+
+			function showResult() {
+				// Sort scores to find the winner
+				const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+				const winner = sorted[0][0];
+				const data = RESULTS[winner];
+
+				// Update progress bar to full
+				progressFill.style.width = '100%';
+
+				// Hide all questions
+				questions.forEach((q) => q.classList.remove('active'));
+
+				// Show result
+				resultGame.textContent = data.name;
+				resultGame.className = 'result-game ' + winner;
+				resultText.textContent = data.text;
+
+				// Build links
+				resultLinks.innerHTML = '';
+				data.links.forEach((link) => {
+					const a = document.createElement('a');
+					a.href = link.href;
+					a.textContent = link.label;
+					resultLinks.appendChild(a);
+				});
+
+				resultEl.classList.add('show');
+			}
+
+			// Set up option click handlers
+			document.querySelectorAll('.option').forEach((btn) => {
+				btn.addEventListener('click', () => {
+					const game = btn.dataset.game;
+					scores[game] = (scores[game] || 0) + 1;
+
+					currentQuestion++;
+					updateProgress();
+
+					if (currentQuestion >= questions.length) {
+						showResult();
+					} else {
+						questions.forEach((q) => q.classList.remove('active'));
+						questions[currentQuestion].classList.add('active');
+					}
+				});
+			});
+
+			function restartQuiz() {
+				currentQuestion = 0;
+				scores.eu4 = 0;
+				scores.eu5 = 0;
+				scores.ck3 = 0;
+
+				resultEl.classList.remove('show');
+				questions.forEach((q, i) => {
+					q.classList.remove('active');
+					if (i === 0) q.classList.add('active');
+				});
+				updateProgress();
+			}
+		</script>
+	</body>
+</html>
