@@ -17,22 +17,52 @@ const latest = posts.slice(0, 6);
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			main {
-				width: 960px;
-			}
 			.hero {
 				text-align: center;
-				padding: 3em 1em;
+				padding: 4em 1em;
+				position: relative;
+				overflow: hidden;
+				border-radius: 16px;
+				border: 1px solid var(--border-color);
+				background: linear-gradient(135deg, #1a2233 0%, #0f1420 50%, #1a2233 100%);
+				margin-bottom: 3em;
+			}
+			.hero::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				left: -50%;
+				width: 200%;
+				height: 200%;
+				background: radial-gradient(circle at 30% 30%, rgba(212, 169, 78, 0.08) 0%, transparent 50%),
+					radial-gradient(circle at 70% 70%, rgba(74, 125, 255, 0.06) 0%, transparent 50%);
+				animation: heroGlow 8s ease-in-out infinite alternate;
+			}
+			@keyframes heroGlow {
+				from {
+					transform: translate(0, 0);
+				}
+				to {
+					transform: translate(2%, 2%);
+				}
 			}
 			.hero h1 {
-				font-size: 2.5em;
-				margin: 0 0 0.5em 0;
+				font-size: 3em;
+				margin: 0 0 0.3em 0;
+				background: linear-gradient(135deg, var(--accent) 0%, #f0d48a 50%, var(--accent) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				position: relative;
+				z-index: 1;
 			}
 			.hero p {
 				font-size: 1.2em;
-				color: rgb(var(--gray));
+				color: var(--text-secondary);
 				max-width: 600px;
 				margin: 0 auto;
+				position: relative;
+				z-index: 1;
 			}
 			.categories {
 				display: flex;
@@ -40,71 +70,63 @@ const latest = posts.slice(0, 6);
 				gap: 1em;
 				flex-wrap: wrap;
 				margin: 2em 0;
+				position: relative;
+				z-index: 1;
 			}
 			.categories a {
 				padding: 0.75em 1.5em;
 				border-radius: 8px;
-				background: rgb(var(--accent));
-				color: white;
 				text-decoration: none;
-				font-weight: bold;
+				font-weight: 700;
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+				border: 1px solid;
 			}
 			.categories a:hover {
-				opacity: 0.85;
+				transform: translateY(-2px);
+				box-shadow: var(--box-shadow-hover);
+			}
+			.cat-eu5 {
+				background: rgba(45, 212, 191, 0.1);
+				color: var(--cat-eu5);
+				border-color: rgba(45, 212, 191, 0.3);
+			}
+			.cat-eu4 {
+				background: rgba(74, 125, 255, 0.1);
+				color: var(--cat-eu4);
+				border-color: rgba(74, 125, 255, 0.3);
+			}
+			.cat-ck3 {
+				background: rgba(224, 82, 82, 0.1);
+				color: var(--cat-ck3);
+				border-color: rgba(224, 82, 82, 0.3);
+			}
+			.cat-comparisons {
+				background: rgba(167, 139, 250, 0.1);
+				color: var(--cat-comparisons);
+				border-color: rgba(167, 139, 250, 0.3);
 			}
 			.latest {
 				margin-top: 2em;
 			}
 			.latest h2 {
 				text-align: center;
+				margin-bottom: 1.5em;
+				color: var(--text-primary);
 			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			.category {
-				display: inline-block;
-				margin: 0.5em 0;
-				padding: 0.2em 0.6em;
-				border-radius: 4px;
-				background: rgb(var(--accent));
-				color: white;
-				font-size: 0.8em;
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1.5em;
 			}
 			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
+				.hero {
+					padding: 2.5em 1em;
 				}
-				ul li {
-					width: 100%;
-					text-align: center;
+				.hero h1 {
+					font-size: 2em;
+				}
+				.grid {
+					grid-template-columns: 1fr;
 				}
 			}
 		</style>
@@ -119,27 +141,25 @@ const latest = posts.slice(0, 6);
 					Universalis V, and Crusader Kings III.
 				</p>
 				<div class="categories">
-					<a href="/category/eu5">EU5 Guides</a>
-					<a href="/category/eu4">EU4 Guides</a>
-					<a href="/category/ck3">CK3 Guides</a>
-					<a href="/category/comparisons">Comparisons</a>
+					<a class="cat-eu5" href="/category/eu5">EU5 Guides</a>
+					<a class="cat-eu4" href="/category/eu4">EU4 Guides</a>
+					<a class="cat-ck3" href="/category/ck3">CK3 Guides</a>
+					<a class="cat-comparisons" href="/category/comparisons">Comparisons</a>
 				</div>
 			</section>
 			<section class="latest">
 				<h2>Latest Guides</h2>
-				<ul>
+				<div class="grid">
 					{latest.map((post) => (
-						<li>
-							<a href={`/blog/${post.data.slug}/`}>
-								<h4 class="title">{post.data.title}</h4>
-								<span class="category">{post.data.category}</span>
-								<p class="date">
-									<FormattedDate date={post.data.date} />
-								</p>
-							</a>
-						</li>
+						<a class="article-card" href={`/blog/${post.data.slug}/`}>
+							<span class={`cat-badge ${post.data.category.toLowerCase()}`}>{post.data.category}</span>
+							<h4>{post.data.title}</h4>
+							<p class="date">
+								<FormattedDate date={post.data.date} />
+							</p>
+						</a>
 					))}
-				</ul>
+				</div>
 			</section>
 		</main>
 		<Footer />

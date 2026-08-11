@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://grandstrategyhub.pages.dev/sitemap-index.xml
+Sitemap: https://grand-strategy-hub.pages.dev/sitemap-index.xml

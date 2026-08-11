@@ -14,15 +14,17 @@ const today = new Date();
 </footer>
 <style>
 	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
+		padding: 3em 1em 4em 1em;
+		background: var(--bg-secondary);
+		border-top: 1px solid var(--border-color);
+		color: var(--text-muted);
 		text-align: center;
 	}
 	.disclaimer {
 		margin: 1em auto;
 		max-width: 600px;
 		font-size: 0.85em;
+		color: var(--text-muted);
 	}
 	.footer-links {
 		display: flex;
@@ -32,9 +34,10 @@ const today = new Date();
 	}
 	.footer-links a {
 		text-decoration: none;
-		color: rgb(var(--gray));
+		color: var(--text-secondary);
+		transition: color 0.2s ease;
 	}
 	.footer-links a:hover {
-		color: rgb(var(--gray-dark));
+		color: var(--accent);
 	}
 </style>

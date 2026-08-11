@@ -14,72 +14,20 @@ const posts = (await getCollection('articles')).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`All Guides | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
+			h1 {
+				margin-bottom: 1.5em;
 				text-align: center;
 			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			.category {
-				display: inline-block;
-				margin: 0.5em 0;
-				padding: 0.2em 0.6em;
-				border-radius: 4px;
-				background: rgb(var(--accent));
-				color: white;
-				font-size: 0.8em;
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1.5em;
 			}
 			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
+				.grid {
+					grid-template-columns: 1fr;
 				}
 			}
 		</style>
@@ -87,23 +35,18 @@ const posts = (await getCollection('articles')).sort(
 	<body>
 		<Header />
 		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.data.slug}/`}>
-									<h4 class="title">{post.data.title}</h4>
-									<span class="category">{post.data.category}</span>
-									<p class="date">
-										<FormattedDate date={post.data.date} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+			<h1>All Guides</h1>
+			<div class="grid">
+				{posts.map((post) => (
+					<a class="article-card" href={`/blog/${post.data.slug}/`}>
+						<span class={`cat-badge ${post.data.category.toLowerCase()}`}>{post.data.category}</span>
+						<h4>{post.data.title}</h4>
+						<p class="date">
+							<FormattedDate date={post.data.date} />
+						</p>
+					</a>
+				))}
+			</div>
 		</main>
 		<Footer />
 	</body>
