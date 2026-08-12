@@ -179,9 +179,12 @@ async function main() {
 	// 3. Check each URL
 	let checked = 0;
 	let indexed = 0;
-	let notIndexed = 0;
+	let crawledNotIndexed = 0;
+	let discoveredNotIndexed = 0;
+	let unknownToGoogle = 0;
+	let otherStatus = 0;
 	let quotaExceeded = false;
-	const notIndexedUrls = [];
+	const statusBreakdown = {};
 
 	for (const url of urls) {
 		if (checked >= DAILY_QUOTA) {
@@ -196,14 +199,27 @@ async function main() {
 		try {
 			const status = await checkIndexingStatus(accessToken, url);
 
-			if (status === 'APPROVED' || status === 'URL_IS_CRAWLABLE' || status === 'CRAWLABLE') {
+			// Google's URL Inspection API returns human-readable status strings
+			if (status === 'Submitted and indexed') {
 				console.log('✓ indexed');
 				indexed++;
+			} else if (status === 'Crawled - currently not indexed') {
+				console.log('⚠ crawled but not indexed (Google saw it, still deciding)');
+				crawledNotIndexed++;
+			} else if (status === 'Discovered - currently not indexed') {
+				console.log('⚠ discovered but not indexed (Google found it, hasn\'t crawled yet)');
+				discoveredNotIndexed++;
+			} else if (status === 'URL is unknown to Google') {
+				console.log('✗ unknown to Google (hasn\'t found this page yet)');
+				unknownToGoogle++;
 			} else {
-				console.log(`✗ not indexed (${status || 'unknown'})`);
-				notIndexed++;
-				notIndexedUrls.push(url);
+				console.log(`? ${status || 'unknown status'}`);
+				otherStatus++;
 			}
+
+			// Track status breakdown for summary
+			const key = status || 'unknown';
+			statusBreakdown[key] = (statusBreakdown[key] || 0) + 1;
 		} catch (error) {
 			console.log(`  ✗ Error: ${error.message}`);
 		}
@@ -216,11 +232,16 @@ async function main() {
 	console.log('\n=== SUMMARY ===');
 	console.log(`URLs checked: ${checked}`);
 	console.log(`Indexed: ${indexed}`);
-	console.log(`Not indexed: ${notIndexed}`);
-	if (notIndexedUrls.length > 0) {
-		console.log('\nPages not yet indexed:');
-		for (const url of notIndexedUrls) {
-			console.log(`  - ${url}`);
+	console.log(`Crawled but not indexed: ${crawledNotIndexed}`);
+	console.log(`Discovered but not indexed: ${discoveredNotIndexed}`);
+	console.log(`Unknown to Google: ${unknownToGoogle}`);
+	if (otherStatus > 0) {
+		console.log(`Other statuses: ${otherStatus}`);
+	}
+	if (Object.keys(statusBreakdown).length > 0) {
+		console.log('\nStatus breakdown:');
+		for (const [status, count] of Object.entries(statusBreakdown)) {
+			console.log(`  ${status}: ${count}`);
 		}
 	}
 	if (quotaExceeded) {
