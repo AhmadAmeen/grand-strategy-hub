@@ -39,7 +39,9 @@ const OAUTH_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const INDEXING_API_URL = 'https://indexing.googleapis.com/v3/urlNotifications:publish';
 const INSPECT_API_URL = 'https://searchconsole.googleapis.com/v1/urlInspection/index:inspect';
 
-// Google service account key file path
+// Google service account key. Can be either:
+//   - A file path to the JSON key file (local development)
+//   - The JSON content itself (GitHub Actions secret)
 const SERVICE_ACCOUNT_JSON = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
 if (!SERVICE_ACCOUNT_JSON) {
 	console.error('ERROR: GOOGLE_SERVICE_ACCOUNT_JSON environment variable is not set.');
@@ -47,8 +49,17 @@ if (!SERVICE_ACCOUNT_JSON) {
 	process.exit(1);
 }
 
+function loadServiceAccount() {
+	// If the value is a file path that exists, read the file
+	if (fs.existsSync(SERVICE_ACCOUNT_JSON)) {
+		return JSON.parse(fs.readFileSync(SERVICE_ACCOUNT_JSON, 'utf8'));
+	}
+	// Otherwise, treat the value as the JSON content itself
+	return JSON.parse(SERVICE_ACCOUNT_JSON);
+}
+
 async function getAccessToken() {
-	const keyFile = JSON.parse(fs.readFileSync(SERVICE_ACCOUNT_JSON, 'utf8'));
+	const keyFile = loadServiceAccount();
 	const now = Math.floor(Date.now() / 1000);
 	const header = { alg: 'RS256', typ: 'JWT' };
 	const claim = {
