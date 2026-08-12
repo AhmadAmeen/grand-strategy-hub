@@ -2,7 +2,7 @@
 title: "EU5 Army Composition Basics: A Beginner's Guide"
 description: "EU5 army composition explained — how the levy vs professional troop system works, how to balance your forces, and how to manage your military."
 keywords: "eu5 army composition"
-date: 2026-02-11
+date: 2026-07-14
 category: "EU5"
 slug: "eu5-army-composition"
 ---

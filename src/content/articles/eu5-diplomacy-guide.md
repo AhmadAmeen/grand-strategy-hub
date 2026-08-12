@@ -2,7 +2,7 @@
 title: "Europa Universalis 5 Diplomacy Guide: Alliances and Rivals"
 description: "EU5 diplomacy guide — how alliances, rivals, and diplomatic reputation work, and how to navigate the diplomatic web to your advantage."
 keywords: "eu5 diplomacy guide"
-date: 2026-02-11
+date: 2026-08-04
 category: "EU5"
 slug: "eu5-diplomacy-guide"
 ---

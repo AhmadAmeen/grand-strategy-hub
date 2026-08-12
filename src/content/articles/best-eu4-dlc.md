@@ -2,7 +2,7 @@
 title: "Best EU4 DLC Ranked: Which Expansions Are Worth Buying"
 description: "The best EU4 DLC ranked from essential to skippable. Here's which expansions are worth your money and which you can safely ignore."
 keywords: "best eu4 dlc"
-date: 2026-02-11
+date: 2026-03-24
 category: "EU4"
 slug: "best-eu4-dlc"
 ---

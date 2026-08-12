@@ -2,7 +2,7 @@
 title: "Common EU4 Beginner Mistakes and How to Avoid Them"
 description: "The most common EU4 beginner mistakes that ruin campaigns, and how to avoid them. Learn from other players' failures before you make your own."
 keywords: "eu4 beginner mistakes"
-date: 2026-02-11
+date: 2026-02-24
 category: "EU4"
 slug: "eu4-beginner-mistakes"
 ---

@@ -2,7 +2,7 @@
 title: "Why EU4 Still Has a Massive Playerbase After EU5's Launch"
 description: "EU5 is out, but EU4 still has a massive playerbase. Here's why players are sticking with the decade-old classic and whether it's still worth playing."
 keywords: "is eu4 still worth playing"
-date: 2026-02-11
+date: 2026-03-10
 category: "EU4"
 slug: "is-eu4-still-worth-playing"
 ---

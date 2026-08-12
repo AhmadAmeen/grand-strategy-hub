@@ -2,7 +2,7 @@
 title: "Crusader Kings 3 Succession Laws Compared"
 description: "CK3 succession laws compared — from Confederate Partition to Primogeniture. Here's how each one works and when you should switch."
 keywords: "ck3 succession laws"
-date: 2026-02-11
+date: 2026-03-31
 category: "CK3"
 slug: "ck3-succession-laws"
 ---

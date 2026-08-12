@@ -2,7 +2,7 @@
 title: "Understanding the Pop System in Europa Universalis 5"
 description: "EU5 pop system explained — how populations work, what social classes exist, and how to manage your pops for a stronger economy and stable realm."
 keywords: "eu5 pop system"
-date: 2026-02-11
+date: 2026-07-21
 category: "EU5"
 slug: "eu5-pop-system"
 ---

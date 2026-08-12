@@ -1,0 +1,48 @@
+name: Nightly Maintenance
+
+on:
+  schedule:
+    # Run at 2:00 AM UTC every day
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    # Allow manual triggering from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  indexing:
+    name: Run Indexing Agent
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts || npm install
+
+      - name: Run Indexing Agent
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: node indexing-agent.js
+
+      # Note: The content-gap agent will be added here in Phase 4,
+      # once Search Console has ranking data to work with.
+      # - name: Run Content-Gap Agent
+      #   env:
+      #     DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      #     GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+      #   run: node content-gap-agent.js
+
+      - name: Commit any changes
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add -A
+          git diff --quiet && git diff --staged --quiet || git commit -m "Nightly maintenance: updated content"
+          git push

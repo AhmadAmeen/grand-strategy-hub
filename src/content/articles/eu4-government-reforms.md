@@ -2,7 +2,7 @@
 title: "EU4 Government Reforms Explained"
 description: "EU4 government reforms explained — how the reform system works, which reforms to pick, and how to progress through the tiers efficiently."
 keywords: "eu4 government reforms"
-date: 2026-02-11
+date: 2026-03-17
 category: "EU4"
 slug: "eu4-government-reforms"
 ---

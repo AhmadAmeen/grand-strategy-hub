@@ -2,7 +2,7 @@
 title: "CK3 Culture and Faith Mechanics Explained"
 description: "CK3 culture and faith mechanics explained — how traditions, tenets, and doctrines shape your realm and how to use them to your advantage."
 keywords: "ck3 culture faith mechanics"
-date: 2026-02-11
+date: 2026-04-21
 category: "CK3"
 slug: "ck3-culture-faith-mechanics"
 ---

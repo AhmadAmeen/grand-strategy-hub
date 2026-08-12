@@ -2,7 +2,7 @@
 title: "How Estates Work in EU5 and Why They Matter"
 description: "EU5 estates explained — how the estate system works, what each estate wants, and why managing them is key to a stable and prosperous realm."
 keywords: "eu5 estates guide"
-date: 2026-02-11
+date: 2026-08-11
 category: "EU5"
 slug: "eu5-estates-guide"
 ---

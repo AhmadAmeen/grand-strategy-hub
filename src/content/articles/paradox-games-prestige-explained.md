@@ -2,7 +2,7 @@
 title: "How Prestige and Renown Work Across Paradox Games"
 description: "Prestige and renown across Paradox games — how these reputation systems work in EU4, EU5, and CK3, and what they mean for your playstyle."
 keywords: "paradox games prestige explained"
-date: 2026-02-11
+date: 2026-06-09
 category: "Comparisons"
 slug: "paradox-games-prestige-explained"
 ---

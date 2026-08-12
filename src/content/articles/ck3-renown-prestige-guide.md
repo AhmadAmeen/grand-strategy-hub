@@ -2,7 +2,7 @@
 title: "How Renown and Prestige Work in Crusader Kings 3"
 description: "CK3 renown and prestige explained — how they differ, how to earn them, and what to spend them on for maximum dynasty growth."
 keywords: "ck3 renown prestige guide"
-date: 2026-02-11
+date: 2026-05-19
 category: "CK3"
 slug: "ck3-renown-prestige-guide"
 ---

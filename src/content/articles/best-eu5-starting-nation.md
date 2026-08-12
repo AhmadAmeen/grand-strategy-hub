@@ -2,7 +2,7 @@
 title: "Best Starting Nations for New Players in EU5"
 description: "The best EU5 starting nations for new players — from the safest pick Hungary to the expansion-friendly Ottomans. Here's who to choose and why."
 keywords: "best eu5 starting nation"
-date: 2026-02-11
+date: 2026-07-07
 category: "EU5"
 slug: "best-eu5-starting-nation"
 ---

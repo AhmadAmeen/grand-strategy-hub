@@ -2,7 +2,7 @@
 title: "How to Create a Custom Nation in EU4"
 description: "A complete guide to creating custom nations in EU4 — from choosing your starting location to spending your points on ideas, traditions, and bonuses."
 keywords: "eu4 custom nation guide"
-date: 2026-02-11
+date: 2026-03-03
 category: "EU4"
 slug: "eu4-custom-nation-guide"
 ---

@@ -2,7 +2,7 @@
 title: "How to Manage Unrest in Europa Universalis 5"
 description: "EU5 unrest explained — what causes rebellions, how to keep your population happy, and how to stabilize newly conquered territory."
 keywords: "eu5 unrest estates"
-date: 2026-02-11
+date: 2026-06-30
 category: "EU5"
 slug: "eu5-unrest-estates"
 ---

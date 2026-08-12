@@ -2,7 +2,7 @@
 title: "EU5 vs EU4: What Changed for Returning Players"
 description: "EU5 vs EU4 — the biggest changes for returning players, from the pop system to trade, estates, and diplomacy. Here's what you need to unlearn."
 keywords: "eu5 vs eu4 differences"
-date: 2026-02-11
+date: 2026-07-28
 category: "EU5"
 slug: "eu5-vs-eu4-differences"
 ---

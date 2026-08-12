@@ -2,7 +2,7 @@
 title: "Best CK3 Starting Characters for Beginners"
 description: "The best CK3 starting characters for beginners — from the tutorial-friendly Murchad to the powerful Duke William. Here's who to pick and why."
 keywords: "ck3 best starting character"
-date: 2026-02-11
+date: 2026-05-12
 category: "CK3"
 slug: "ck3-best-starting-character"
 ---

@@ -2,7 +2,7 @@
 title: "How to Survive as a Small County in Early Game CK3"
 description: "How to survive as a small county in early game CK3 — from managing your liege to building your economy and expanding without getting crushed."
 keywords: "ck3 small county survival guide"
-date: 2026-02-11
+date: 2026-04-14
 category: "CK3"
 slug: "ck3-small-county-survival-guide"
 ---

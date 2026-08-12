@@ -2,7 +2,7 @@
 title: "Paradox Grand Strategy DLC Release Tracker 2026"
 description: "Every Paradox grand strategy DLC release in 2026 — EU5, EU4, and CK3 expansions, flavor packs, and updates. Track what's coming and what's out."
 keywords: "paradox dlc release schedule 2026"
-date: 2026-02-11
+date: 2026-06-02
 category: "Comparisons"
 slug: "paradox-dlc-release-schedule-2026"
 ---

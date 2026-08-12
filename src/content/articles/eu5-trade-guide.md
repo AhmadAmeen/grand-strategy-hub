@@ -2,7 +2,7 @@
 title: "EU5 Beginner's Guide: Trade and Merchants Explained"
 description: "EU5 trade and merchants explained for beginners — how trade routes work, how to use merchants effectively, and how to build a strong trade economy."
 keywords: "eu5 trade guide"
-date: 2026-02-11
+date: 2026-06-23
 category: "EU5"
 slug: "eu5-trade-guide"
 ---

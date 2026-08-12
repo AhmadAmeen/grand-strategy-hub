@@ -2,7 +2,7 @@
 title: "The Clausewitz Engine Explained: What It Means for EU4, EU5, and CK3"
 description: "The Clausewitz engine explained — the game engine behind EU4, EU5, and CK3, and what it means for how these games play and mod."
 keywords: "clausewitz engine explained"
-date: 2026-02-11
+date: 2026-06-16
 category: "Comparisons"
 slug: "clausewitz-engine-explained"
 ---

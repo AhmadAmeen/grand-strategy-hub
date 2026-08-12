@@ -2,7 +2,7 @@
 title: "CK3 DLC Roundup: What Each Expansion Adds"
 description: "Every CK3 DLC explained — what each expansion, flavor pack, and event pack adds to the game and whether it's worth buying."
 keywords: "ck3 dlc guide"
-date: 2026-02-11
+date: 2026-04-28
 category: "CK3"
 slug: "ck3-dlc-guide"
 ---

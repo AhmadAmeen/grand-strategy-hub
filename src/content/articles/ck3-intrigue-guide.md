@@ -2,7 +2,7 @@
 title: "CK3 Intrigue Guide: Schemes, Spies, and Secrets"
 description: "CK3 intrigue guide — how schemes work, how to use your spymaster, and how to murder, seduce, and scheme your way to the top."
 keywords: "ck3 intrigue guide"
-date: 2026-02-11
+date: 2026-05-05
 category: "CK3"
 slug: "ck3-intrigue-guide"
 ---
