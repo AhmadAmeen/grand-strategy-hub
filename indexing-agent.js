@@ -42,10 +42,10 @@ const INSPECT_API_URL = 'https://searchconsole.googleapis.com/v1/urlInspection/i
 // Google service account key. Can be either:
 //   - A file path to the JSON key file (local development)
 //   - The JSON content itself (GitHub Actions secret)
-const SERVICE_ACCOUNT_JSON = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+const SERVICE_ACCOUNT_JSON = process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS;
 if (!SERVICE_ACCOUNT_JSON) {
-	console.error('ERROR: GOOGLE_SERVICE_ACCOUNT_JSON environment variable is not set.');
-	console.error('Set it before running:  GOOGLE_SERVICE_ACCOUNT_JSON=path/to/key.json node indexing-agent.js');
+	console.error('ERROR: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS environment variable is not set.');
+	console.error('Set it before running:  GOOGLE_SERVICE_ACCOUNT_CREDENTIALS=path/to/key.json node indexing-agent.js');
 	process.exit(1);
 }
 
