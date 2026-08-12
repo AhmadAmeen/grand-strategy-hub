@@ -34,8 +34,8 @@ if (fs.existsSync(envPath)) {
 	}
 }
 
-const SITE_URL = 'https://grand-strategy-hub.pages.dev';
-const SITEMAP_URL = `${SITE_URL}/sitemap-index.xml`;
+const SITE_URL = 'https://grand-strategy-hub.pages.dev/';
+const SITEMAP_URL = `${SITE_URL}sitemap-index.xml`;
 const DAILY_QUOTA = 200; // Google's URL Inspection API daily limit
 
 // Google APIs
