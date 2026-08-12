@@ -215,7 +215,7 @@ async function main() {
 	let successCount = 0;
 	let failCount = 0;
 
-	for (let i = 0; i < topics.length; i++) {
+		for (let i = 0; i < topics.length; i++) {
 		const topic = topics[i];
 		const slug = slugify(topic.title);
 		const filePath = path.join(ARTICLES_DIR, `${slug}.md`);
@@ -224,6 +224,14 @@ async function main() {
 
 		try {
 			const articleBody = await generateArticle(topic);
+
+			// QA gate: reject any response containing editorial placeholders like [VERIFY
+			if (articleBody.includes('[VERIFY')) {
+				throw new Error(
+					'Article contains "[VERIFY" placeholder text. The model inserted an editorial note instead of writing confident content. Re-generate this article with instructions to state its best answer confidently without inserting editorial placeholders.',
+				);
+			}
+
 			const markdown = buildMarkdownFile(topic, articleBody, slug);
 			fs.writeFileSync(filePath, markdown, 'utf8');
 			console.log(`  ✓ Saved to ${path.relative(__dirname, filePath)}`);

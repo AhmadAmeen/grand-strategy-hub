@@ -11,14 +11,19 @@ Paradox Interactive runs on a DLC treadmill, and 2026 is shaping up to be a busy
 
 ## Europa Universalis V
 
-EU5 launched in November 2025, and Paradox has already confirmed a DLC roadmap for 2026. The plan includes:
+EU5 launched in November 2025, and Paradox has already confirmed a full DLC roadmap for 2026. Here's what's been announced:
 
-- **A Chronicle Pack** — Paradox's term for a smaller content pack, typically adding new events, decisions, and flavor for a specific region or mechanic
-- **An Immersion Pack** — a larger content pack that adds deeper mechanics for a specific region or playstyle
+### Fate of the Phoenix — Released May 6, 2026
 
-The exact release dates and details of these packs haven't been fully announced yet, but Paradox has confirmed they're coming through 2026. This is the first full year of EU5's DLC cycle, so expect the game to grow significantly over the next 12 months.
+The first EU5 immersion pack, **Fate of the Phoenix** focuses on the Byzantine Empire. It adds new mechanics, events, and flavor for one of the most iconic powers in the game's timeline. If you're playing as the Byzantines — or planning to restore the Roman Empire — this is the pack for you.
 
-**What to expect:** EU5's first year of DLC will likely focus on expanding the base game's systems — the pop system, trade, and diplomacy are all candidates for deeper content. Keep an eye on Paradox's dev diaries for announcements.
+### Across the Pillars — Q3 2026
+
+The first EU5 Chronicle Pack, **Across the Pillars** covers the Strait of Gibraltar region, with content for Morocco and Castile. Chronicle Packs are Paradox's smaller content packs, typically adding new events, decisions, and regional flavor.
+
+### The Auld Alliance — Q4 2026
+
+The second EU5 Chronicle Pack, **The Auld Alliance** focuses on France, Scotland, and England — the tangled web of alliances and rivalries that shaped Western Europe. Expect new events and decisions tied to the Hundred Years' War era and its aftermath.
 
 ## Crusader Kings III
 
@@ -43,6 +48,6 @@ The best way to stay on top of Paradox DLC announcements:
 
 ## The Bottom Line
 
-2026 is a big year for Paradox grand strategy. EU5 is getting its first DLC, CK3 is continuing its expansion cycle, and EU4 remains supported. If you're a fan of any of these games, there's something to look forward to.
+2026 is a big year for Paradox grand strategy. EU5 is getting its first DLC wave — Fate of the Phoenix is out now, with Across the Pillars and The Auld Alliance coming later in the year. CK3 is continuing its expansion cycle, and EU4 remains supported. If you're a fan of any of these games, there's something to look forward to.
 
 This article will be updated as new DLC is announced. Check back regularly for the latest on the 2026 Paradox release schedule.

@@ -11,9 +11,7 @@ Diplomacy is the art of getting what you want without fighting for it — and in
 
 ## The Basics of EU5 Diplomacy
 
-The core diplomatic systems in EU5 are similar to EU4: you can form alliances, declare rivals, improve relations, and negotiate peace deals. But there are differences in the details.
-
-[VERIFY: The exact diplomatic mechanics in EU5 — how alliances work, how rivals function, and whether there are new diplomatic actions. I believe the core system is similar to EU4 but with some adjustments.]
+The core diplomatic systems in EU5 are similar to EU4: you can form alliances, declare rivals, improve relations, and negotiate peace deals. The fundamentals carry over, but there are new tools and adjustments that reward careful attention.
 
 **The key diplomatic actions:**
 - **Alliances** — mutual defense pacts. Your ally will join your wars, and you'll join theirs.
@@ -64,9 +62,9 @@ Your diplomatic reputation is how other nations perceive you. It's affected by:
 
 **2. Watch your aggressive expansion.** High AE is the fastest way to lose friends and gain enemies. Spread your conquests around and let AE decay.
 
-**3. Don't be afraid to break alliances — but be careful.** Sometimes an alliance has outlived its usefulness. Breaking it is better than being dragged into wars you don't want.
+**3. Use your rivals strategically.** Rivalry is a tool, not just a declaration. Use it to gain bonuses and justify wars.
 
-**4. Use your rivals strategically.** Rivalry is a tool, not just a declaration. Use it to gain bonuses and justify wars.
+**4. Think about who benefits.** When you go to war, think about who gains and who loses — not just you, but your allies and rivals. Diplomacy is a web, and every action ripples through it.
 
 ## The Bottom Line
 

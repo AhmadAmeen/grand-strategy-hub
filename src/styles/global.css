@@ -280,6 +280,59 @@ p {
 	display: block;
 	text-decoration: none;
 	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Category color bar on top of cards */
+.article-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+}
+
+.article-card.eu4::before {
+	background: linear-gradient(90deg, var(--cat-eu4), rgba(74, 125, 255, 0.3));
+}
+
+.article-card.eu5::before {
+	background: linear-gradient(90deg, var(--cat-eu5), rgba(45, 212, 191, 0.3));
+}
+
+.article-card.ck3::before {
+	background: linear-gradient(90deg, var(--cat-ck3), rgba(224, 82, 82, 0.3));
+}
+
+.article-card.comparisons::before {
+	background: linear-gradient(90deg, var(--cat-comparisons), rgba(167, 139, 250, 0.3));
+}
+
+/* Category banner for article detail pages */
+.article-banner {
+	height: 120px;
+	border-radius: 12px 12px 0 0;
+	margin-bottom: 0;
+	border: 1px solid var(--border-color);
+	border-bottom: none;
+}
+
+.article-banner.eu4 {
+	background: linear-gradient(135deg, rgba(74, 125, 255, 0.25) 0%, rgba(74, 125, 255, 0.05) 100%);
+}
+
+.article-banner.eu5 {
+	background: linear-gradient(135deg, rgba(45, 212, 191, 0.25) 0%, rgba(45, 212, 191, 0.05) 100%);
+}
+
+.article-banner.ck3 {
+	background: linear-gradient(135deg, rgba(224, 82, 82, 0.25) 0%, rgba(224, 82, 82, 0.05) 100%);
+}
+
+.article-banner.comparisons {
+	background: linear-gradient(135deg, rgba(167, 139, 250, 0.25) 0%, rgba(167, 139, 250, 0.05) 100%);
 }
 
 .article-card:hover {

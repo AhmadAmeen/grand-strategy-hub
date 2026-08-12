@@ -199,7 +199,7 @@ const latest = posts.slice(0, 6);
 				<h2>Latest Guides</h2>
 				<div class="grid">
 					{latest.map((post) => (
-						<a class="article-card" href={`/blog/${post.data.slug}/`}>
+						<a class={`article-card ${post.data.category.toLowerCase()}`} href={`/blog/${post.data.slug}/`}>
 							<span class={`cat-badge ${post.data.category.toLowerCase()}`}>{post.data.category}</span>
 							<h4>{post.data.title}</h4>
 							<p class="date">

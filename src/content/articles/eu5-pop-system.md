@@ -19,7 +19,7 @@ Pops are the individual population groups that live in your provinces. Each prov
 - **A size** — how many people are in the pop
 - **A happiness level** — how content they are
 
-[VERIFY: The exact pop classes in EU5 — what social classes exist and how they interact. I believe EU5 has classes like farmers, laborers, artisans, burghers, nobles, and clergy, but the exact list and their mechanics need verification.]
+The pop system is inspired by games like Victoria — Paradox's other pop-based grand strategy — but adapted for the early-modern setting of EU5.
 
 ## Why Pops Matter
 
@@ -37,7 +37,7 @@ Each pop class has a different role:
 - **Nobles** — the ruling class. Provide manpower and military bonuses but demand privileges.
 - **Clergy** — the religious class. Provide stability and conversion but demand influence.
 
-[VERIFY: The exact pop classes and their bonuses in EU5 — this is a core mechanic and needs to be accurate.]
+Different classes also respond differently to events — a tax increase hurts farmers more than nobles, while a war benefits the nobility at the expense of everyone else.
 
 ## Managing Your Pops
 

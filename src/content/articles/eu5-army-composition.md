@@ -1,68 +1,78 @@
 ---
 title: "EU5 Army Composition Basics: A Beginner's Guide"
-description: "EU5 army composition explained for beginners — how to build effective armies, balance unit types, and manage your military for success."
+description: "EU5 army composition explained — how the levy vs professional troop system works, how to balance your forces, and how to manage your military."
 keywords: "eu5 army composition"
 date: 2026-02-11
 category: "EU5"
 slug: "eu5-army-composition"
 ---
 
-Building an effective army in EU5 is one of the most important skills you'll learn. A well-composed army can defeat a larger, poorly-composed one. A poorly-composed army will get destroyed even against weaker opponents. Here's what you need to know about army composition as a beginner.
+Building and managing an army in EU5 is different from EU4 in one crucial way: EU5 uses a **dual army system** — levies and professional troops. Understanding the difference between these two forces is the most important thing a beginner needs to know about EU5 combat. Here's how it works.
 
-## The Basics of EU5 Combat
+## The Two Armies: Levies and Professionals
 
-EU5's combat system is similar to EU4's in its fundamentals — armies fight in phases, unit types have strengths and weaknesses, and terrain matters. But there are important differences.
+**Levies** are the citizen militias that rally to your banner when you go to war. They're the bulk of your early army, and they have distinct characteristics:
 
-[VERIFY: The exact combat mechanics in EU5 — how combat width works, how unit types interact, and whether the combat system has been significantly reworked from EU4. I believe EU5 keeps the core EU4 combat model but may have adjusted unit stats and interactions.]
+- **They're temporary.** Levies are summoned when war breaks out and disband when it ends.
+- **They're plentiful but weak.** You can raise large numbers of them, but they're poorly trained and equipped compared to professionals.
+- **They spawn from your provinces.** Your levy pool comes from your population, so a larger population means more levies.
+- **They're cheap.** Levies cost little to maintain during war, which makes them attractive for early-game economies.
 
-**The key unit types:**
-- **Infantry** — the backbone of your army. Cheap, reliable, and effective in most situations.
-- **Cavalry** — more expensive but more powerful. Best used on the flanks.
-- **Artillery** — expensive but devastating. Best used in the back row, where it can deal damage without taking much.
+**Professional troops** are your standing army — trained, equipped, and always ready:
 
-## The Standard Army Template
+- **They're permanent.** Professionals stay in your army during peace and war alike.
+- **They're expensive.** Professionals cost significantly more to maintain than levies, both in gold and in upkeep.
+- **They're reliable.** Professionals fight far better than levies, with higher discipline and morale.
+- **They're limited by your economy.** You can only maintain a certain number of professionals based on your budget and military infrastructure.
 
-For most of the game, a good army composition looks like this:
+## Why This Matters
 
-**Early game (before artillery is practical):**
-- 4 infantry per 1 cavalry
-- Example: 8 infantry + 2 cavalry = 10 regiments
+The levy/professional split changes how you think about war in EU5:
 
-**Mid game (once artillery is available):**
-- 4 infantry per 1 cavalry, plus artillery
-- Example: 12 infantry + 3 cavalry + 5 artillery = 20 regiments
+**Early game:** You'll rely mostly on levies, with a small core of professionals. Your army is large but fragile — you can win wars, but you need to win them quickly before your levies' morale collapses or they take unsustainable casualties.
 
-**Late game (full armies):**
-- 4 infantry per 1 cavalry, with artillery filling the back row
-- Example: 20 infantry + 5 cavalry + 10 artillery = 35 regiments
+**Mid game:** As your economy grows, you transition toward a professional core. Your armies get smaller but stronger. You can fight longer wars because your professionals don't disband.
 
-The exact numbers depend on your combat width, which increases as you tech up. The key principle: **infantry fills the front line, cavalry flanks, artillery sits in the back.**
+**Late game:** A fully professional army is the goal. It's expensive to maintain, but it's the most reliable fighting force in the game.
 
-## Why This Composition Works
+## Building Your Army
 
-- **Infantry** absorbs damage and holds the line. They're the most cost-effective unit for the front row.
-- **Cavalry** deals high damage on the flanks, where they can outmaneuver enemy infantry. But they're expensive, so you don't want too many.
-- **Artillery** deals massive damage from the back row without taking much damage themselves. They're the key to winning late-game battles.
+With the two-army system in mind, here's what a balanced military looks like:
 
-## Managing Your Army
+**Early game:**
+- A small professional core (a few thousand men)
+- Large levy armies raised for specific wars
+- Accept that your levies are expendable — they're there to win the war, not to survive
 
-**1. Don't split your forces.** A single large army is more effective than two smaller ones. Keep your main army together unless you have a specific reason to split.
+**Mid game:**
+- A growing professional army as your backbone
+- Levies used as auxiliary forces or for defensive wars
+- Invest in military buildings that improve both your levy pool and your professional capacity
 
-**2. Watch your maintenance.** At peace, lower your army maintenance to save money. Raise it to full before declaring war.
+**Late game:**
+- A fully professional army as your main force
+- Levies kept as a reserve for emergencies
+- Professional armies are expensive, but they win wars
 
-**3. Reinforce after battles.** After a big battle, your regiments will be depleted. Let them reinforce before the next fight.
+## Managing Your Military
 
-**4. Use terrain to your advantage.** Defending in mountains or across rivers gives you a massive bonus. Let the enemy attack you in bad terrain.
+**1. Don't waste your professionals.** Professional troops are expensive to replace. Use them for decisive battles, not for garrison duty or siege support.
+
+**2. Levies are expendable — use them that way.** Levies are there to absorb casualties and win wars. Don't be precious with them.
+
+**3. Watch your economy.** A professional army can bankrupt you if you build it too fast. Grow your professional core as your economy allows.
+
+**4. Use terrain and tactics.** Defending in mountains or across rivers gives you a massive bonus. Let the enemy attack you in bad terrain, regardless of which army type you're using.
 
 ## Common Beginner Mistakes
 
-- **Too much cavalry.** Cavalry is expensive, and too much of it wastes money. Stick to the 4:1 ratio.
-- **Not enough artillery.** In the late game, artillery is what wins battles. Don't skimp on it.
-- **Splitting your army.** A divided army is a defeated army. Keep your forces together.
-- **Forgetting maintenance.** Fighting at low maintenance is like fighting with one hand tied behind your back.
+- **Treating levies like professionals.** Levies are not your real army — they're a force multiplier. Don't expect them to fight like trained soldiers.
+- **Building too many professionals too early.** A professional army is expensive. Build it as your economy grows, not before.
+- **Ignoring your levy pool.** Even in the late game, levies are useful as reserves. Don't let your levy pool sit unused.
+- **Forgetting maintenance.** At peace, lower your maintenance costs. Raise it to full before going to war.
 
 ## The Bottom Line
 
-Army composition in EU5 is about balance. Infantry holds the line, cavalry flanks, and artillery wins the battle from the back. Stick to the 4:1:2 ratio (infantry:cavalry:artillery) as a baseline, adjust based on your situation, and you'll be well-prepared for most fights.
+The levy/professional system is the defining feature of EU5's military. Learn to use both forces effectively: levies for scale and expendability, professionals for quality and reliability. As your economy grows, transition toward a professional core while keeping your levies as a reserve.
 
-The key is to build armies that are **cost-effective**, not just powerful. A balanced army that you can afford to maintain is better than an expensive army that bankrupts you.
+The key insight: EU5's military is about **resource management**, not just army composition. You're managing two different forces with different costs, different strengths, and different roles. Master both, and you'll have a military that can handle anything.

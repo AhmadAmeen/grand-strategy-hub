@@ -19,19 +19,17 @@ You earn reform progress passively over time. The rate depends on your governmen
 
 The tiers are numbered 1 through 12, and they unlock as the game progresses. Higher tiers are locked behind both reform progress and, in some cases, the in-game date. You can't rush to tier 12 in the first 50 years — the game gates it.
 
-Each tier offers a choice of reforms, and the choices are usually themed around your government type. A monarchy might choose between different types of royal courts, while a republic might choose between different electoral systems. Some reforms are clearly better than others, and some are situational.
+Each tier offers a choice of reforms, and the choices are usually themed around your government type. A monarchy might choose between different types of royal courts or administrative structures, while a republic might choose between different electoral systems. Some reforms are clearly better than others, and some are situational.
 
-## Key Reforms to Consider
+## Choosing Reforms
 
-While the best reform depends on your nation and playstyle, there are a few that stand out across most campaigns:
+The key to picking reforms is understanding what fits your playstyle:
 
-**Tier 1 — The Foundation.** This is your first reform, and it's usually about your government's core structure. For monarchies, the choice between different court types matters. The **Noble Court** gives you legitimacy and prestige, which is solid for most campaigns. The **Administrative Court** gives you cheaper state maintenance, which is great for wide play.
+**Early tiers (1-3)** — These shape your government's foundation. For monarchies, you're choosing between reforms that boost legitimacy, prestige, or administrative efficiency. For republics, you're choosing between electoral systems and civic structures. Think about whether you're playing tall (development, trade, economy) or wide (conquest, expansion, military).
 
-**Tier 3 — The Middle Ground.** By this point you're making choices that shape your playstyle. The **Parliamentary** reforms are strong for tall play, while the **Absolutist** reforms are better for conquest-focused campaigns.
+**Mid tiers (4-7)** — This is where reforms start having a bigger impact. You're choosing between options that affect your economy, your military, or your internal management. If you're playing a conquest-heavy campaign, prioritize reforms that boost your military or administrative efficiency. If you're playing tall, look for reforms that boost development or trade.
 
-**Tier 5 — The Power Spike.** This is where reforms start getting really impactful. The **Divine** reforms for theocracies are excellent, and the **Revolutionary** reforms for republics are game-changing.
-
-**Tier 7+ — The Late Game.** These reforms are powerful but come late. The **Imperial** reforms for empires are worth planning around, and the **Revolutionary** reforms can completely transform your nation.
+**Late tiers (8-12)** — These reforms are powerful but come late. They can completely transform your nation, so plan ahead. Some reforms unlock special government mechanics that change how your nation plays.
 
 ## Reform Progress Tips
 

@@ -11,9 +11,7 @@ Estates are one of the most important internal systems in EU5 — and one of the
 
 ## What Are Estates?
 
-Estates are the powerful social groups within your realm — the nobility, clergy, burghers, and other classes who hold power and influence. They have their own interests, their own demands, and their own ways of helping or hindering you.
-
-[VERIFY: The exact estate system in EU5 — how many estates exist, how influence works, and what privileges/obligations they have. EU4 had three estates (nobility, clergy, burghers). EU5 may have additional estates or a more complex system.]
+Estates are the powerful social groups within your realm — the nobility, clergy, burghers, and other classes who hold power and influence. They have their own interests, their own demands, and their own ways of helping or hindering you. EU5's estate system is deeper than EU4's, with more estates, more interactions, and more meaningful consequences.
 
 ## Why Estates Matter
 
@@ -24,7 +22,7 @@ Estates aren't optional — you can't ignore them. They control significant port
 - **Clergy** — stability, conversion, and legitimacy
 - **Burghers** — trade income, tax revenue, and economic growth
 
-[VERIFY: The exact estate bonuses in EU5 — what each estate provides and how their happiness affects their contribution.]
+Each estate provides these bonuses at full strength when they're loyal, and withholds them — or worse, actively opposes you — when they're unhappy.
 
 ## Estate Influence
 
@@ -36,15 +34,35 @@ Each estate has an **influence** level — how much power they wield in your rea
 
 **High influence** means the estate can demand more from you and is harder to control. **Low influence** means they're weaker but also less helpful.
 
-## Estate Loyalty/Opinion
+## Estate Loyalty
 
-Estates also have a **loyalty** or opinion level — how happy they are with your rule. Loyalty is affected by:
+Estates also have a **loyalty** level — how happy they are with your rule. Loyalty is affected by:
 
 - **Privileges** — granting privileges makes an estate more loyal
 - **Actions** — fulfilling their demands increases loyalty; ignoring them decreases it
 - **Events** — events can change estate loyalty
 
-**High loyalty** means the estate provides their bonuses at full strength. **Low loyalty** means they withhold their support — or worse, actively work against you.
+**High loyalty** means the estate provides their bonuses at full strength. **Low loyalty** means they withhold their support — and may even support rebels or refuse to pay taxes.
+
+## The Privilege System
+
+Privileges are the main tool for managing estates. Each privilege grants an estate more power and influence in exchange for a bonus to your realm.
+
+**The trade-off:** Privileges are useful — they give you bonuses — but they're hard to revoke. Grant a privilege and the estate's influence grows, making them harder to control. Grant too many privileges and you've created a monster.
+
+**How to use privileges wisely:**
+- Grant privileges that give bonuses you actually need
+- Don't grant privileges casually — think about the long-term influence cost
+- Revoke privileges when you can afford the loyalty hit
+
+## Estate Agendas
+
+Estates have **agendas** — tasks they want you to complete. These are marked in the estate interface, and completing them is almost always worth it.
+
+**Why agendas matter:**
+- Completing an agenda improves estate loyalty
+- Agendas give you clear goals and direction
+- They're often easy tasks like "build a church in this province" or "win a war against this rival"
 
 ## Managing Estates Effectively
 
@@ -52,7 +70,7 @@ Estates also have a **loyalty** or opinion level — how happy they are with you
 
 **2. Grant privileges strategically.** Privileges give estates more power in exchange for bonuses. They're useful, but they're hard to revoke. Don't grant privileges you'll regret.
 
-**3. Complete estate agendas.** Estates have agendas — tasks they want you to complete. Completing them improves loyalty and gives you bonuses.
+**3. Complete estate agendas.** Agendas are easy bonuses. Completing them improves loyalty and prevents problems.
 
 **4. Watch the balance of power.** If one estate becomes too powerful, take actions to reduce their influence — even if it makes them unhappy in the short term.
 

@@ -17,31 +17,25 @@ The single biggest difference is the pop system. In EU4, provinces were abstract
 
 ## Trade: Reworked
 
-EU4's trade system was based on static trade nodes — you steered trade from node to node toward your home node. EU5's trade system is different.
-
-[VERIFY: The exact trade system in EU5 — whether it uses trade nodes, dynamic routes, or something else. I believe EU5 uses a more dynamic system where goods flow based on supply and demand, but this needs verification.]
+EU4's trade system was based on static trade nodes — you steered trade from node to node toward your home node. EU5's trade system is more dynamic, based on supply and demand that shifts as economies change. Goods flow along routes determined by what's being produced and consumed, rather than following predetermined paths.
 
 **What this means for you:** Your EU4 trade instincts may not apply. Don't assume that the same trade nodes are valuable or that the same strategies work. Experiment and learn the new system.
 
 ## Estates: More Complex
 
-EU4's estates were relatively simple — three estates with influence, loyalty, and a few privileges. EU5's estates are more complex, with more estates, more interactions, and more consequences.
+EU4's estates were relatively simple — three estates with influence, loyalty, and a few privileges. EU5's estates are a core part of your internal management, with more interactions, more consequences, and a deeper relationship with your pop system.
 
 **What this means for you:** You can't just set your estates and forget them. You need to actively manage them — grant privileges carefully, complete their agendas, and keep them balanced.
 
-## Monarch Points: Changed
+## The Military: Levies and Professionals
 
-EU4's monarch points (admin, diplo, military) were the core currency of the game. EU5 has reworked this system.
+EU4's military was fairly straightforward — you built regiments and they were your standing army. EU5 splits your military into **levies** (temporary, citizen militias raised for war) and **professional troops** (your permanent, trained standing army). This changes how you think about military spending and warfare significantly.
 
-[VERIFY: The exact monarch point system in EU5 — whether it still uses admin/diplo/military points or has been replaced with something else. I believe EU5 has changed how points work, but the specifics need verification.]
-
-**What this means for you:** Your EU4 habits of managing monarch points may not apply. Learn the new system before you start spending.
+**What this means for you:** Your EU4 military habits don't carry over. You need to learn how to balance these two forces — when to rely on levies, when to invest in professionals, and how to manage the cost.
 
 ## Diplomacy: Similar but Different
 
-Diplomacy in EU5 is broadly similar to EU4 — alliances, rivals, wars, peace deals. But there are differences in the details.
-
-[VERIFY: The exact diplomatic changes in EU5 — how alliances, rivals, and peace deals work. I believe the core system is similar to EU4 but with some adjustments.]
+Diplomacy in EU5 is broadly similar to EU4 — alliances, rivals, wars, peace deals. The core systems remain recognizable.
 
 **What this means for you:** Your EU4 diplomatic instincts are mostly still valid. Alliances are still important, aggressive expansion still matters, and you still need to watch your reputation.
 
@@ -51,7 +45,7 @@ Some things haven't changed:
 
 - **The map.** Still province-based, still the same world.
 - **War.** Still about armies, sieges, and peace deals.
-- **Expansion.** Still about conquering territory and managing overextension.
+- **Expansion.** Still about conquering territory and managing the consequences.
 - **The goal.** Still about building your nation's power over centuries.
 
 ## The Bottom Line

@@ -33,13 +33,9 @@ These are smaller than the expansions but add significant content for specific r
 
 **Wards & Wardens** (2023) is another event pack, this time focused on children and guardianship. It adds new events for raising children, which is a nice addition if you enjoy the family management side of the game.
 
-## The Event Packs
+**Legacy of Persia** (2023) is a flavor pack focused on the Persian region, adding new events, decisions, and mechanics for the area — including the Iranian Intermezzo struggle system. It's a solid choice if you want to play in the Middle East, with depth that rivals the bigger expansions.
 
-These are the smallest DLCs — they add events and flavor but no major mechanics.
-
-**Legacy of Persia** (2023) adds Persian content — new events, decisions, and flavor for the Persian region. It's a solid flavor pack for anyone playing in the Middle East.
-
-**The Fate of Iberia** and **Northern Lords** are the standout flavor packs, while the event packs are more of a "buy if you want more flavor" proposition.
+**The Fate of Iberia** and **Northern Lords** are the standout flavor packs, while the event packs (*Friends & Foes*, *Wards & Wardens*) are more of a "buy if you want more flavor" proposition.
 
 ## What's Worth Buying
 
