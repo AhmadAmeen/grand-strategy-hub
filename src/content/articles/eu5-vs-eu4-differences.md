@@ -19,7 +19,7 @@ The single biggest difference is the pop system. In EU4, provinces were abstract
 
 EU4's trade system was based on static trade nodes — you steered trade from node to node toward your home node. EU5's trade system is more dynamic, based on supply and demand that shifts as economies change. Goods flow along routes determined by what's being produced and consumed, rather than following predetermined paths.
 
-**What this means for you:** Your EU4 trade instincts may not apply. Don't assume that the same trade nodes are valuable or that the same strategies work. Experiment and learn the new system.
+**What this means for you:** Your EU4 trade instincts may not apply. Don't assume that the same trade nodes are valuable or that the same strategies work. Experiment and learn the new system. Want to see the EU4 trade network visually? Check out our [interactive trade node map](/tools/eu4-trade-map).
 
 ## Estates: More Complex
 

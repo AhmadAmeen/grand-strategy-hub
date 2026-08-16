@@ -13,7 +13,7 @@ Trade in Europa Universalis V is one of the most important systems in the game, 
 
 The core concept is that goods are produced in provinces and flow through trade routes to where they're needed. The key difference from EU4 is that EU5 uses a more dynamic trade system based on supply and demand, rather than EU4's static trade nodes. Goods flow along routes based on what's being produced and what's being consumed, which means trade patterns can shift over time as economies change.
 
-The key thing to understand is that trade is about **connecting production to demand**. Provinces produce goods, and those goods flow to places where they're needed. Your job as a ruler is to position yourself to capture value from that flow.
+The key thing to understand is that trade is about **connecting production to demand**. Provinces produce goods, and those goods flow to places where they're needed. Your job as a ruler is to position yourself to capture value from that flow. If you're coming from EU4, you can see how the old trade node network worked visually with our [interactive trade node map](/tools/eu4-trade-map).
 
 ## Merchants
 

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EU4 Trade Node Flow Chart</title>
+<meta property="og:title" content="EU4 Trade Node Map — Interactive Flow Chart" />
+<meta property="og:description" content="Explore how trade value flows through EU4's node network with this interactive map. See how value splits across routes and flows toward the end nodes." />
+<meta property="og:image" content="https://grand-strategy-hub.pages.dev/blog-placeholder-1.jpg" />
+<meta property="og:url" content="https://grand-strategy-hub.pages.dev/tools/eu4-trade-map" />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment: #F1EADA; --chart-bg: #FAF6EC; --ink: #2B2418; --ink-soft: #6B6250; --ink-quiet: #B3A98F;
+    --gold: #A8823C; --gold-bright: #C79A45; --seal: #A23F30; --verdigris: #3D6B5A;
+    --line-default: #D3C9AE; --card-shadow: rgba(43,36,24,0.10);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--parchment); font-family:'Inter',system-ui,sans-serif; color:var(--ink); min-height:100vh; padding:20px;}
+  .wrap{max-width:1180px; margin:0 auto;}
+  header{margin-bottom:14px;}
+  .eyebrow{font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--seal); font-weight:700; margin-bottom:6px;}
+  h1{font-family:'Cormorant Garamond',serif; font-weight:700; font-size:clamp(26px,3.6vw,38px); margin:0 0 8px 0;}
+  .lede{font-size:14.5px; line-height:1.55; color:var(--ink-soft); max-width:660px;}
+  .lede strong{color:var(--ink);}
+  .controls{display:flex; align-items:center; gap:10px; margin-top:12px; flex-wrap:wrap;}
+  .hint{font-size:12.5px; font-weight:600; color:var(--seal); background:#fff; padding:6px 12px; border-radius:20px; border:1px solid #E3D6B8;}
+  .mode-toggle{display:flex; border:1px solid #E3D6B8; border-radius:20px; overflow:hidden; background:#fff;}
+  .mode-toggle button{border:none; background:transparent; padding:6px 14px; font-size:12.5px; font-weight:600; color:var(--ink-soft); cursor:pointer; font-family:'Inter',sans-serif;}
+  .mode-toggle button.active{background:var(--seal); color:#fff;}
+
+  .search-wrap{position:relative; width:220px;}
+  .search-input{
+    width:100%; padding:7px 12px; border-radius:20px; border:1px solid #E3D6B8;
+    font-family:'Inter',sans-serif; font-size:12.5px; color:var(--ink); background:#fff;
+  }
+  .search-input:focus{outline:2px solid var(--gold-bright); outline-offset:1px;}
+  .search-results{
+    position:absolute; top:calc(100% + 4px); left:0; right:0; background:#fff;
+    border:1px solid #E3D6B8; border-radius:10px; box-shadow:0 6px 16px var(--card-shadow);
+    max-height:220px; overflow-y:auto; z-index:20; display:none;
+  }
+  .search-results.show{display:block;}
+  .search-result-item{
+    padding:8px 12px; font-size:13px; cursor:pointer; border-bottom:1px solid #F0E9D6;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .search-result-item:last-child{border-bottom:none;}
+  .search-result-item:hover, .search-result-item.active{background:#FAF1DC;}
+  .search-result-tag{font-size:9.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-quiet);}
+  .search-no-match{padding:10px 12px; font-size:12.5px; color:var(--ink-soft); font-style:italic;}
+
+  .board{display:grid; grid-template-columns: minmax(0,1fr) 300px; gap:16px; margin-top:16px;}
+  @media (max-width: 860px){.board{grid-template-columns: 1fr;}}
+
+  .chart-frame{position:relative; background:var(--chart-bg); border:1px solid #E3D6B8; border-radius:8px; box-shadow: 0 4px 14px var(--card-shadow); overflow:hidden;}
+  .chart-scroll{overflow-x:auto; overflow-y:hidden;}
+  svg{display:block;}
+
+  .edge{fill:none; stroke:var(--line-default); stroke-width:1.4; opacity:0.75; transition: all 0.3s ease;}
+  .edge.down{stroke:var(--seal); stroke-width:2.4; opacity:0.95;}
+  .edge.up{stroke:var(--verdigris); stroke-width:2; opacity:0.9; stroke-dasharray:4 4;}
+  .edge.dim{opacity:0.1;}
+
+  .node-dot{stroke:#fff; stroke-width:1.4; transition: all 0.25s ease; cursor:pointer;}
+  .node-dot.regular{fill:#DCD2B4;}
+  .node-dot.end{fill:var(--gold-bright); stroke:var(--seal); stroke-width:2;}
+  .node-dot.end.pulse-idle{animation: idlePulse 3s ease-in-out infinite;}
+  @keyframes idlePulse{0%,100%{opacity:1;} 50%{opacity:0.55;}}
+  .node-dot.selected{fill:var(--seal); stroke:var(--ink);}
+  .node-dot.down{fill:#D89A87;}
+  .node-dot.up{fill:#A9C7B8;}
+  .node-dot.dim{opacity:0.28;}
+  .node-dot.flash{animation: flashRing 1.1s ease-out 2;}
+  @keyframes flashRing{0%{filter:drop-shadow(0 0 0px var(--gold-bright));} 50%{filter:drop-shadow(0 0 6px var(--gold-bright));} 100%{filter:drop-shadow(0 0 0px var(--gold-bright));}}
+
+  .node-hit{fill:transparent; cursor:pointer;}
+
+  .label-halo{fill:var(--chart-bg); stroke:var(--chart-bg); stroke-width:5; stroke-linejoin:round; pointer-events:none; transition: fill 0.3s ease;}
+  .node-label{font-family:'Inter',sans-serif; font-size:9.5px; font-weight:600; fill:var(--ink-quiet); pointer-events:none; transition: all 0.25s ease;}
+  .node-label.end{fill:var(--ink-soft); font-weight:700;}
+  .node-label.selected{fill:var(--ink); font-weight:700; font-size:10.5px;}
+  .node-label.down, .node-label.up{fill:var(--ink); font-weight:700;}
+  .node-label.dim{opacity:0.28;}
+
+  .pulse-down{fill:var(--seal);}
+  .pulse-up{fill:var(--verdigris);}
+
+  .legend{display:flex; flex-wrap:wrap; gap:10px 18px; padding:10px 14px; border-top:1px solid #E3D6B8; font-size:11.5px; color:var(--ink-soft);}
+  .legend-item{display:flex; align-items:center; gap:6px;}
+  .swatch{width:16px; height:3px; border-radius:2px; display:inline-block;}
+  .dot-swatch{width:9px; height:9px; border-radius:50%; display:inline-block; border:1px solid #fff; box-shadow:0 0 0 1px #ccc;}
+
+  .panel{background:var(--chart-bg); border:1px solid #E3D6B8; border-radius:8px; box-shadow: 0 4px 14px var(--card-shadow); padding:18px; align-self:start; position:sticky; top:12px;}
+  .panel-empty{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--ink-soft); line-height:1.5;}
+  .panel-title-row{display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin-bottom:4px;}
+  .panel-title{font-family:'Cormorant Garamond',serif; font-weight:700; font-size:23px;}
+  .panel-type{font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:var(--gold); font-weight:700; white-space:nowrap;}
+  .panel-type.is-end{color:var(--seal);}
+  .panel-section{margin-top:14px; padding-top:12px; border-top:1px dashed #E3D6B8;}
+  .panel-section h4{margin:0 0 6px 0; font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); font-weight:700;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{font-size:12px; padding:3px 9px; border-radius:20px; background:#fff; border:1px solid #E3D6B8; color:var(--ink);}
+  .chip.muted{background:transparent; border-style:dashed; color:var(--ink-soft); font-style:italic;}
+  .panel-note{font-size:12px; color:var(--ink-soft); line-height:1.5; margin-top:6px;}
+  .end-reach{display:flex; align-items:center; gap:6px; margin-top:6px; font-size:13px; font-weight:600;}
+  .end-reach .dot-swatch{background:var(--gold-bright); box-shadow:0 0 0 1.5px var(--seal);}
+  footer{margin-top:16px; font-size:11.5px; color:var(--ink-soft); line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">How trade actually works</div>
+    <h1>The Trade Node Network</h1>
+    <p class="lede">Every province feeds value into a <strong>trade node</strong>. If nobody collects that value, it keeps moving to the next node, and the next, until it finally settles in an <strong>end node</strong>. Watch the dots travel to see it happen.</p>
+    <div class="controls">
+      <div class="hint">👉 Tap any circle</div>
+      <div class="mode-toggle">
+        <button id="btn-simple" class="active">Simple (12)</button>
+        <button id="btn-europe">Europe (29)</button>
+        <button id="btn-global">Global (74)</button>
+      </div>
+      <div class="search-wrap">
+        <input type="text" id="search-input" class="search-input" placeholder="Search any node, e.g. Malacca...">
+        <div class="search-results" id="search-results"></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="board">
+    <div class="chart-frame">
+      <div class="chart-scroll"><svg id="chart" xmlns="http://www.w3.org/2000/svg"></svg></div>
+      <div class="legend">
+        <div class="legend-item"><span class="dot-swatch" style="background:#DCD2B4;"></span> Node</div>
+        <div class="legend-item"><span class="dot-swatch" style="background:var(--gold-bright); box-shadow:0 0 0 1.5px var(--seal);"></span> End node</div>
+        <div class="legend-item"><span class="swatch" style="background:var(--seal);"></span> Flows downstream</div>
+        <div class="legend-item"><span class="swatch" style="background:var(--verdigris);"></span> Feeds into selection</div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel">
+      <div class="panel-empty">Pick a node to see where its trade value goes, and what feeds into it.</div>
+    </div>
+  </div>
+
+  <footer>
+    Nodes are placed left to right based on how many steps they are from an end node, not their real location on the map. The Global view covers 74 of the game's 80 total nodes, drawn directly from the game's own node data. Four nodes (Xi'an, Yumen, Zambezi, Zanzibar) are left out for now because their full connections couldn't be confirmed yet, rather than guessing at them. A node marked <em>"+ also fed by"</em> or <em>"+ also flows to"</em> connects to one of those four. Based on the standard node network in patch 1.37.
+  </footer>
+</div>
+
+<script>
+const ALL_NODE_DEFS = [
+  {id:"englishChannel", name:"English Channel", type:"end"},
+  {id:"genoa", name:"Genoa", type:"end"},
+  {id:"venice", name:"Venice", type:"end"},
+  {id:"champagne", name:"Champagne", type:"inland"},
+  {id:"lubeck", name:"Lübeck", type:"regular"},
+  {id:"northSea", name:"North Sea", type:"regular"},
+  {id:"valencia", name:"Valencia", type:"inlandsea"},
+  {id:"alexandria", name:"Alexandria", type:"inlandsea"},
+  {id:"ragusa", name:"Ragusa", type:"inlandsea"},
+  {id:"tunis", name:"Tunis", type:"inlandsea"},
+  {id:"wien", name:"Wien", type:"inland"},
+  {id:"rheinland", name:"Rheinland", type:"inland"},
+  {id:"balticSea", name:"Baltic Sea", type:"inlandsea"},
+  {id:"saxony", name:"Saxony", type:"inland"},
+  {id:"bordeaux", name:"Bordeaux", type:"regular"},
+  {id:"sevilla", name:"Sevilla", type:"regular"},
+  {id:"aleppo", name:"Aleppo", type:"inlandsea"},
+  {id:"constantinople", name:"Constantinople", type:"inlandsea"},
+  {id:"krakow", name:"Krakow", type:"inland"},
+  {id:"pest", name:"Pest", type:"inland"},
+  {id:"whiteSea", name:"White Sea", type:"regular"},
+  {id:"novgorod", name:"Novgorod", type:"inlandsea"},
+  {id:"kiev", name:"Kiev", type:"inland"},
+  {id:"crimea", name:"Crimea", type:"inlandsea"},
+  {id:"basra", name:"Basra", type:"inlandsea"},
+  {id:"persia", name:"Persia", type:"inland"},
+  {id:"kazan", name:"Kazan", type:"inland"},
+  {id:"astrakhan", name:"Astrakhan", type:"inland"},
+  {id:"hormuz", name:"Hormuz", type:"regular"},
+  {id:"amazonas", name:"Amazonas", type:"regular"},
+  {id:"australia", name:"Australia", type:"regular"},
+  {id:"beijing", name:"Beijing", type:"inlandsea"},
+  {id:"bengal", name:"Bengal", type:"regular"},
+  {id:"brazil", name:"Brazil", type:"regular"},
+  {id:"burma", name:"Burma", type:"regular"},
+  {id:"california", name:"California", type:"regular"},
+  {id:"canton", name:"Canton", type:"inlandsea"},
+  {id:"capeOfGoodHope", name:"Cape of Good Hope", type:"regular"},
+  {id:"caribbean", name:"Caribbean", type:"regular"},
+  {id:"coromandel", name:"Coromandel", type:"regular"},
+  {id:"chengdu", name:"Chengdu", type:"inland"},
+  {id:"chesapeakeBay", name:"Chesapeake Bay", type:"regular"},
+  {id:"congo", name:"Congo", type:"inland"},
+  {id:"cuiaba", name:"Cuiaba", type:"regular"},
+  {id:"deccan", name:"Deccan", type:"inland"},
+  {id:"doab", name:"Doab", type:"inland"},
+  {id:"ethiopia", name:"Ethiopia", type:"inland"},
+  {id:"girin", name:"Girin", type:"regular"},
+  {id:"greatLakes", name:"Great Lakes", type:"inland"},
+  {id:"gujarat", name:"Gujarat", type:"regular"},
+  {id:"gulfOfAden", name:"Gulf of Aden", type:"regular"},
+  {id:"gulfOfStLawrence", name:"Gulf of St. Lawrence", type:"regular"},
+  {id:"hangzhou", name:"Hangzhou", type:"inlandsea"},
+  {id:"hudsonBay", name:"Hudson Bay", type:"regular"},
+  {id:"ivoryCoast", name:"Ivory Coast", type:"regular"},
+  {id:"katsina", name:"Katsina", type:"inland"},
+  {id:"lahore", name:"Lahore", type:"inland"},
+  {id:"lhasa", name:"Lhasa", type:"inland"},
+  {id:"lima", name:"Lima", type:"regular"},
+  {id:"malacca", name:"Malacca", type:"regular"},
+  {id:"mexico", name:"Mexico", type:"regular"},
+  {id:"mississippiRiver", name:"Mississippi River", type:"regular"},
+  {id:"theMoluccas", name:"The Moluccas", type:"regular"},
+  {id:"nippon", name:"Nippon", type:"regular"},
+  {id:"ohio", name:"Ohio", type:"inland"},
+  {id:"panama", name:"Panama", type:"regular"},
+  {id:"patagonia", name:"Patagonia", type:"regular"},
+  {id:"philippines", name:"Philippines", type:"regular"},
+  {id:"polynesianTriangle", name:"Polynesian Triangle", type:"regular"},
+  {id:"rioDeLaPlata", name:"Rio de La Plata", type:"regular"},
+  {id:"rioGrande", name:"Rio Grande", type:"regular"},
+  {id:"safi", name:"Safi", type:"regular"},
+  {id:"samarkand", name:"Samarkand", type:"inland"},
+  {id:"siam", name:"Siam", type:"regular"},
+  {id:"siberia", name:"Siberia", type:"inland"},
+  {id:"timbuktu", name:"Timbuktu", type:"inland"},
+];
+
+const ALL_EDGES = [
+  ["aleppo","alexandria"],["aleppo","constantinople"],
+  ["alexandria","constantinople"],["alexandria","genoa"],["alexandria","venice"],
+  ["amazonas","brazil"],["amazonas","caribbean"],["amazonas","cuiaba"],
+  ["astrakhan","crimea"],["astrakhan","kazan"],
+  ["australia","theMoluccas"],
+  ["balticSea","lubeck"],
+  ["basra","aleppo"],["basra","persia"],
+  ["bengal","coromandel"],["bengal","doab"],
+  ["bordeaux","champagne"],
+  ["brazil","ivoryCoast"],
+  ["burma","bengal"],["burma","siam"],
+  ["california","girin"],["california","mexico"],["california","mississippiRiver"],["california","polynesianTriangle"],
+  ["canton","hangzhou"],["canton","malacca"],["canton","philippines"],
+  ["capeOfGoodHope","ivoryCoast"],
+  ["caribbean","bordeaux"],["caribbean","chesapeakeBay"],["caribbean","sevilla"],
+  ["coromandel","capeOfGoodHope"],["coromandel","gujarat"],["coromandel","gulfOfAden"],
+  ["champagne","englishChannel"],["champagne","genoa"],
+  ["chengdu","burma"],["chengdu","canton"],
+  ["chesapeakeBay","englishChannel"],["chesapeakeBay","gulfOfStLawrence"],
+  ["constantinople","ragusa"],
+  ["crimea","constantinople"],["crimea","kiev"],["crimea","pest"],
+  ["cuiaba","brazil"],["cuiaba","lima"],["cuiaba","rioDeLaPlata"],
+  ["deccan","coromandel"],["deccan","gujarat"],
+  ["doab","deccan"],["doab","lahore"],
+  ["ethiopia","alexandria"],["ethiopia","gulfOfAden"],
+  ["girin","beijing"],["girin","nippon"],["girin","siberia"],
+  ["greatLakes","congo"],
+  ["gujarat","gulfOfAden"],["gujarat","hormuz"],
+  ["gulfOfAden","alexandria"],["gulfOfAden","hormuz"],
+  ["gulfOfStLawrence","bordeaux"],["gulfOfStLawrence","northSea"],
+  ["hangzhou","beijing"],["hangzhou","malacca"],
+  ["hormuz","basra"],
+  ["hudsonBay","gulfOfStLawrence"],["hudsonBay","california"],
+  ["ivoryCoast","bordeaux"],["ivoryCoast","caribbean"],["ivoryCoast","englishChannel"],["ivoryCoast","sevilla"],
+  ["katsina","ethiopia"],["katsina","timbuktu"],["katsina","tunis"],
+  ["kazan","novgorod"],
+  ["kiev","krakow"],["kiev","novgorod"],
+  ["congo","ivoryCoast"],
+  ["krakow","balticSea"],["krakow","saxony"],["krakow","wien"],
+  ["lahore","gujarat"],["lahore","persia"],["lahore","samarkand"],
+  ["lhasa","bengal"],["lhasa","chengdu"],["lhasa","lahore"],
+  ["lima","panama"],["lima","polynesianTriangle"],
+  ["lubeck","englishChannel"],
+  ["malacca","bengal"],["malacca","capeOfGoodHope"],
+  ["mexico","caribbean"],["mexico","panama"],["mexico","polynesianTriangle"],
+  ["mississippiRiver","caribbean"],["mississippiRiver","ohio"],
+  ["theMoluccas","malacca"],
+  ["nippon","hangzhou"],
+  ["northSea","englishChannel"],["northSea","lubeck"],
+  ["novgorod","balticSea"],["novgorod","whiteSea"],
+  ["ohio","chesapeakeBay"],["ohio","gulfOfStLawrence"],
+  ["panama","caribbean"],
+  ["patagonia","cuiaba"],["patagonia","rioDeLaPlata"],
+  ["persia","aleppo"],["persia","astrakhan"],
+  ["pest","krakow"],["pest","wien"],
+  ["philippines","theMoluccas"],["philippines","polynesianTriangle"],
+  ["polynesianTriangle","australia"],["polynesianTriangle","nippon"],["polynesianTriangle","panama"],
+  ["ragusa","genoa"],["ragusa","venice"],["ragusa","pest"],
+  ["rheinland","champagne"],["rheinland","lubeck"],
+  ["rioDeLaPlata","brazil"],
+  ["rioGrande","california"],["rioGrande","mexico"],["rioGrande","mississippiRiver"],
+  ["safi","sevilla"],
+  ["samarkand","astrakhan"],["samarkand","persia"],
+  ["saxony","lubeck"],["saxony","rheinland"],
+  ["sevilla","valencia"],
+  ["siam","canton"],["siam","malacca"],
+  ["siberia","kazan"],["siberia","samarkand"],
+  ["timbuktu","ivoryCoast"],["timbuktu","safi"],
+  ["tunis","genoa"],["tunis","sevilla"],["tunis","valencia"],
+  ["valencia","genoa"],
+  ["whiteSea","northSea"],
+  ["wien","saxony"],["wien","rheinland"],["wien","venice"],
+];
+
+const EXTERNAL_IN = {
+  capeOfGoodHope: ["Zanzibar"],
+  samarkand: ["Yumen"],
+};
+const EXTERNAL_OUT = {
+  beijing: ["Yumen"],
+  chengdu: ["Xi'an"],
+  hangzhou: ["Xi'an"],
+  congo: ["Zambezi"],
+  gujarat: ["Zanzibar"],
+  gulfOfAden: ["Zanzibar"],
+  greatLakes: ["Zanzibar"],
+};
+
+const TYPE_LABEL = {end:"End node", inland:"Inland node", inlandsea:"Inland sea node", regular:"Coastal node"};
+
+const STARTER_IDS = ["englishChannel","genoa","venice","champagne","bordeaux","lubeck","balticSea","valencia","sevilla","alexandria","constantinople","ragusa"];
+const EUROPE_IDS = ["englishChannel","genoa","venice","champagne","lubeck","northSea","valencia","alexandria","ragusa","tunis","wien","rheinland","balticSea","saxony","bordeaux","sevilla","aleppo","constantinople","krakow","pest","whiteSea","novgorod","kiev","crimea","basra","persia","kazan","astrakhan","hormuz"];
+const GLOBAL_IDS = ALL_NODE_DEFS.map(n=>n.id);
+
+const svgNS = "http://www.w3.org/2000/svg";
+const svg = document.getElementById("chart");
+let graph = null, selected = null, currentMode = "simple";
+
+function buildGraph(idSet){
+  const nodes = ALL_NODE_DEFS.filter(n => idSet.includes(n.id)).map(n => ({...n}));
+  const edges = ALL_EDGES.filter(([a,b]) => idSet.includes(a) && idSet.includes(b));
+  const byId = Object.fromEntries(nodes.map(n => [n.id, n]));
+  const outgoing = {}, incoming = {};
+  nodes.forEach(n => { outgoing[n.id]=[]; incoming[n.id]=[]; });
+  edges.forEach(([a,b]) => { outgoing[a].push(b); incoming[b].push(a); });
+
+  const tier = {};
+  let frontier = nodes.filter(n=>n.type==="end").map(n=>n.id);
+  frontier.forEach(id=>tier[id]=0);
+  let d=0;
+  while(frontier.length){
+    const next=[];
+    frontier.forEach(cur => incoming[cur].forEach(up => { if(!(up in tier)){tier[up]=d+1; next.push(up);} }));
+    frontier=next; d++;
+  }
+  // any node not reached (isolated / cut off from an end node in this subset) gets placed at maxTier+1
+  const reachedTiers = Object.values(tier);
+  let maxTier = reachedTiers.length ? Math.max(...reachedTiers) : 0;
+  nodes.forEach(n => { if(!(n.id in tier)){ tier[n.id] = maxTier+1; } });
+  maxTier = Math.max(...Object.values(tier));
+
+  const byTier = {};
+  for(let t=0;t<=maxTier;t++) byTier[t]=[];
+  nodes.forEach(n => byTier[tier[n.id]].push(n.id));
+  byTier[0] = nodes.filter(n=>n.type==="end").map(n=>n.id).sort();
+
+  const ROW_GAP = 42, MARGIN_Y = 40;
+  const maxCount = Math.max(...Object.values(byTier).map(a=>a.length), 1);
+  const usableH = Math.max(480, MARGIN_Y*2 + (maxCount-1)*ROW_GAP);
+
+  const yPos = {};
+  function assignY(arr){
+    const n = arr.length;
+    const gap = n>1 ? (usableH-MARGIN_Y*2)/(n-1) : 0;
+    const startY = MARGIN_Y + ((usableH-MARGIN_Y*2) - gap*(n-1))/2;
+    arr.forEach((id,i) => { yPos[id] = n>1 ? startY+i*gap : usableH/2; });
+  }
+  assignY(byTier[0]);
+  for(let t=1;t<=maxTier;t++){
+    const arr = byTier[t];
+    const bary = {};
+    arr.forEach(id => {
+      const targets = outgoing[id].filter(o => o in yPos);
+      bary[id] = targets.length ? targets.reduce((s,o)=>s+yPos[o],0)/targets.length : 999999;
+    });
+    arr.sort((a,b)=>bary[a]-bary[b]);
+    assignY(arr);
+  }
+
+  const COL_GAP = 108, MARGIN_X = 70;
+  const usableW = MARGIN_X*2 + maxTier*COL_GAP;
+  nodes.forEach(n => {
+    const fromLeft = maxTier - tier[n.id];
+    n.x = maxTier>0 ? MARGIN_X + fromLeft*COL_GAP : usableW/2;
+    n.y = yPos[n.id];
+  });
+
+  return {nodes, edges, byId, outgoing, incoming, tier, width: usableW, height: usableH};
+}
+
+function downstreamReach(g, startId){
+  const visitedNodes = new Set([startId]);
+  const visitedEdges = new Set();
+  const queue=[startId];
+  while(queue.length){
+    const cur = queue.shift();
+    g.outgoing[cur].forEach(next => {
+      visitedEdges.add(cur+"->"+next);
+      if(!visitedNodes.has(next)){ visitedNodes.add(next); queue.push(next); }
+    });
+  }
+  return {nodes:visitedNodes, edges:visitedEdges};
+}
+function endNodesReached(g, nodesSet){
+  return g.nodes.filter(n => n.type==="end" && nodesSet.has(n.id)).map(n=>n.name);
+}
+function edgePath(a,b){
+  const midX=(a.x+b.x)/2;
+  return `M ${a.x} ${a.y} C ${midX} ${a.y}, ${midX} ${b.y}, ${b.x} ${b.y}`;
+}
+
+let edgeEls={}, nodeEls={};
+
+function renderGraph(g){
+  svg.setAttribute("viewBox", `0 0 ${g.width} ${g.height}`);
+  svg.setAttribute("width", g.width);
+  svg.setAttribute("height", g.height);
+  svg.innerHTML = "";
+  edgeEls = {}; nodeEls = {}; selected = null;
+
+  g.edges.forEach(([a,b]) => {
+    const path = document.createElementNS(svgNS,"path");
+    const id = "edge-"+a+"-"+b;
+    path.setAttribute("id", id);
+    path.setAttribute("d", edgePath(g.byId[a], g.byId[b]));
+    path.setAttribute("class","edge");
+    svg.appendChild(path);
+    edgeEls[a+"->"+b] = path;
+  });
+
+  g.nodes.forEach(n => {
+    const gEl = document.createElementNS(svgNS,"g");
+    const dot = document.createElementNS(svgNS,"circle");
+    dot.setAttribute("cx",n.x); dot.setAttribute("cy",n.y);
+    dot.setAttribute("r", n.type==="end" ? 8 : 5.5);
+    dot.setAttribute("class","node-dot "+(n.type==="end"?"end pulse-idle":"regular"));
+    gEl.appendChild(dot);
+
+    const onRight = n.type==="end";
+    const lx = onRight ? n.x-14 : n.x+11;
+    const ly = n.y+3.5;
+    const anchor = onRight ? "end" : "start";
+
+    const halo = document.createElementNS(svgNS,"text");
+    halo.setAttribute("x",lx); halo.setAttribute("y",ly);
+    halo.setAttribute("text-anchor",anchor);
+    halo.setAttribute("class","label-halo node-label");
+    halo.textContent = n.name;
+    gEl.appendChild(halo);
+
+    const label = document.createElementNS(svgNS,"text");
+    label.setAttribute("x",lx); label.setAttribute("y",ly);
+    label.setAttribute("text-anchor",anchor);
+    label.setAttribute("class","node-label"+(n.type==="end"?" end":""));
+    label.textContent = n.name;
+    gEl.appendChild(label);
+
+    const hit = document.createElementNS(svgNS,"circle");
+    hit.setAttribute("cx",n.x); hit.setAttribute("cy",n.y); hit.setAttribute("r",14);
+    hit.setAttribute("class","node-hit");
+    hit.addEventListener("click", () => selectNode(n.id));
+    gEl.appendChild(hit);
+
+    svg.appendChild(gEl);
+    nodeEls[n.id] = {dot, label, halo};
+  });
+
+  renderPanel(null);
+}
+
+function clearPulses(){ svg.querySelectorAll(".pulse-dot").forEach(el => el.remove()); }
+function addPulse(edgeKey, cls){
+  const pathEl = edgeEls[edgeKey];
+  if(!pathEl) return;
+  const circle = document.createElementNS(svgNS,"circle");
+  circle.setAttribute("r", 3.2);
+  circle.setAttribute("class","pulse-dot "+cls);
+  const anim = document.createElementNS(svgNS,"animateMotion");
+  anim.setAttribute("dur","1.3s");
+  anim.setAttribute("repeatCount","indefinite");
+  const mpath = document.createElementNS(svgNS,"mpath");
+  mpath.setAttributeNS("http://www.w3.org/1999/xlink","href","#"+pathEl.id);
+  mpath.setAttribute("href","#"+pathEl.id);
+  anim.appendChild(mpath);
+  circle.appendChild(anim);
+  svg.appendChild(circle);
+}
+
+function clearHighlights(){
+  clearPulses();
+  Object.values(edgeEls).forEach(el => el.classList.remove("down","up","dim"));
+  Object.entries(nodeEls).forEach(([id, els]) => {
+    els.dot.classList.remove("selected","down","up","dim");
+    els.label.classList.remove("selected","down","up","dim");
+    const n = graph.byId[id];
+    els.dot.setAttribute("r", n.type==="end" ? 8 : 5.5);
+  });
+}
+
+function selectNode(id){
+  if(selected === id){ selected=null; clearHighlights(); renderPanel(null); return; }
+  selected = id;
+  clearHighlights();
+
+  const {nodes: downNodes, edges: downEdges} = downstreamReach(graph, id);
+  const upNodeIds = new Set(graph.incoming[id]);
+
+  Object.entries(edgeEls).forEach(([key, el]) => {
+    const [a,b] = key.split("->");
+    const isDown = downEdges.has(key);
+    const isUp = (b===id && upNodeIds.has(a));
+    if(!isDown && !isUp) el.classList.add("dim");
+  });
+  Object.entries(nodeEls).forEach(([nid, els]) => {
+    if(nid!==id && !downNodes.has(nid) && !upNodeIds.has(nid)){
+      els.dot.classList.add("dim"); els.label.classList.add("dim");
+    }
+  });
+
+  downEdges.forEach(key => { edgeEls[key] && edgeEls[key].classList.add("down"); addPulse(key,"pulse-down"); });
+  downNodes.forEach(nid => { if(nid!==id){ nodeEls[nid].dot.classList.add("down"); nodeEls[nid].label.classList.add("down"); } });
+
+  graph.incoming[id].forEach(up => {
+    const key = up+"->"+id;
+    if(edgeEls[key]){ edgeEls[key].classList.add("up"); addPulse(key,"pulse-up"); }
+    nodeEls[up].dot.classList.add("up");
+    nodeEls[up].label.classList.add("up");
+  });
+
+  nodeEls[id].dot.classList.add("selected");
+  nodeEls[id].label.classList.add("selected");
+  nodeEls[id].dot.setAttribute("r", 9);
+
+  renderPanel(id, downNodes);
+  nodeEls[id].dot.scrollIntoView && nodeEls[id].dot.parentElement.closest(".chart-scroll") &&
+    nodeEls[id].dot.parentElement.closest(".chart-scroll").scrollTo({left: Math.max(0, graph.byId[id].x-300), behavior:"smooth"});
+}
+
+function renderPanel(id, downNodes){
+  const panel = document.getElementById("panel");
+  if(!id){
+    panel.innerHTML = `<div class="panel-empty">Pick a node to see where its trade value goes, and what feeds into it.</div>`;
+    return;
+  }
+  const n = graph.byId[id];
+  const feedsFrom = graph.incoming[id].map(i => graph.byId[i].name);
+  const extIn = EXTERNAL_IN[id] || [];
+  const flowsTo = graph.outgoing[id].map(o => graph.byId[o].name);
+  const extOut = EXTERNAL_OUT[id] || [];
+  const ends = n.type==="end" ? [n.name] : endNodesReached(graph, downNodes);
+
+  panel.innerHTML = `
+    <div class="panel-title-row">
+      <div class="panel-title">${n.name}</div>
+      <div class="panel-type ${n.type==='end'?'is-end':''}">${TYPE_LABEL[n.type]}</div>
+    </div>
+    ${n.type==='end' ? `<div class="panel-note">Nothing flows out of here. Value that reaches ${n.name} just stays put, unless a nation collects it.</div>` : ""}
+    <div class="panel-section">
+      <h4>Fed by</h4>
+      <div class="chip-row">
+        ${feedsFrom.length ? feedsFrom.map(f=>`<span class="chip">${f}</span>`).join("") : `<span class="chip muted">nothing upstream</span>`}
+        ${extIn.map(e=>`<span class="chip muted">+ also fed by ${e}</span>`).join("")}
+      </div>
+    </div>
+    ${n.type!=='end' ? `
+    <div class="panel-section">
+      <h4>Goes to</h4>
+      <div class="chip-row">
+        ${flowsTo.map(f=>`<span class="chip">${f}</span>`).join("")}
+        ${extOut.map(e=>`<span class="chip muted">+ also flows to ${e}</span>`).join("")}
+      </div>
+    </div>
+    <div class="panel-section">
+      <h4>Ends up in</h4>
+      ${ends.length ? ends.map(e=>`<div class="end-reach"><span class="dot-swatch"></span>${e}</div>`).join("") : `<div class="panel-note">This node's onward path isn't fully mapped yet in this chart.</div>`}
+      <div class="panel-note">The value splits across all these routes based on trade power. It doesn't just pick one path.</div>
+    </div>` : ""}
+  `;
+}
+
+function switchMode(mode){
+  currentMode = mode;
+  const idSet = mode==="simple" ? STARTER_IDS : mode==="europe" ? EUROPE_IDS : GLOBAL_IDS;
+  graph = buildGraph(idSet);
+  renderGraph(graph);
+}
+
+document.getElementById("btn-simple").addEventListener("click", (e) => { setActiveBtn(e.target); switchMode("simple"); });
+document.getElementById("btn-europe").addEventListener("click", (e) => { setActiveBtn(e.target); switchMode("europe"); });
+document.getElementById("btn-global").addEventListener("click", (e) => { setActiveBtn(e.target); switchMode("global"); });
+function setActiveBtn(btn){
+  document.querySelectorAll(".mode-toggle button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+// --- Search ---
+const searchInput = document.getElementById("search-input");
+const searchResults = document.getElementById("search-results");
+
+searchInput.addEventListener("input", () => {
+  const q = searchInput.value.trim().toLowerCase();
+  if(!q){ searchResults.classList.remove("show"); searchResults.innerHTML=""; return; }
+  const matches = ALL_NODE_DEFS.filter(n => n.name.toLowerCase().includes(q)).slice(0,8);
+  if(!matches.length){
+    searchResults.innerHTML = `<div class="search-no-match">No node matches "${searchInput.value}"</div>`;
+  } else {
+    searchResults.innerHTML = matches.map(n =>
+      `<div class="search-result-item" data-id="${n.id}"><span>${n.name}</span><span class="search-result-tag">${TYPE_LABEL[n.type]}</span></div>`
+    ).join("");
+  }
+  searchResults.classList.add("show");
+});
+
+searchResults.addEventListener("click", (e) => {
+  const item = e.target.closest(".search-result-item");
+  if(!item) return;
+  const id = item.dataset.id;
+  goToNode(id);
+  searchResults.classList.remove("show");
+  searchInput.value = "";
+});
+
+document.addEventListener("click", (e) => {
+  if(!e.target.closest(".search-wrap")) searchResults.classList.remove("show");
+});
+
+function goToNode(id){
+  if(currentMode !== "global"){
+    setActiveBtn(document.getElementById("btn-global"));
+    switchMode("global");
+  }
+  selectNode(id);
+  if(nodeEls[id]){
+    nodeEls[id].dot.classList.add("flash");
+    setTimeout(()=> nodeEls[id] && nodeEls[id].dot.classList.remove("flash"), 2300);
+  }
+}
+
+switchMode("simple");
+</script>
+</body>
+</html>

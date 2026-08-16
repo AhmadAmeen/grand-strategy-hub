@@ -49,7 +49,7 @@ The fix: **always have your diplomats working.** Fabricate claims before you nee
 
 Trade is one of the most powerful economic systems in EU4, and it's also one of the most confusing for beginners. Many new players just ignore it entirely and wonder why they're always broke.
 
-The fix: **at minimum, send your merchants to the best trade nodes you have access to.** If you're playing a European nation, you should be steering trade toward your home node. Don't worry about the full complexity of the trade system at first — just get your merchants working and collect where you can. As you get more comfortable, you can start optimizing.
+The fix: **at minimum, send your merchants to the best trade nodes you have access to.** If you're playing a European nation, you should be steering trade toward your home node. Don't worry about the full complexity of the trade system at first — just get your merchants working and collect where you can. As you get more comfortable, you can start optimizing. Want to see how the whole network connects? Check out our [interactive trade node map](/tools/eu4-trade-map).
 
 ## The Bottom Line
 
