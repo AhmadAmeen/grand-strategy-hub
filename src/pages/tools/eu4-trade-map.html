@@ -453,10 +453,10 @@ function renderGraph(g){
     dot.setAttribute("class","node-dot "+(n.type==="end"?"end pulse-idle":"regular"));
     gEl.appendChild(dot);
 
-    const onRight = n.type==="end";
-    const lx = onRight ? n.x-14 : n.x+11;
-    const ly = n.y+3.5;
-    const anchor = onRight ? "end" : "start";
+    const isEnd = n.type==="end";
+    const lx = isEnd ? n.x : n.x+11;
+    const ly = isEnd ? n.y-14 : n.y+3.5;
+    const anchor = isEnd ? "middle" : "start";
 
     const halo = document.createElementNS(svgNS,"text");
     halo.setAttribute("x",lx); halo.setAttribute("y",ly);
