@@ -73,9 +73,9 @@
   .edge.up{stroke:var(--verdigris); stroke-width:2; opacity:0.9; stroke-dasharray:4 4;}
   .edge.dim{opacity:0.1;}
 
-  .node-dot{stroke:#fff; stroke-width:1.4; transition: all 0.25s ease; cursor:pointer;}
+  .node-dot{stroke:#fff; stroke-width:1.6; transition: all 0.25s ease; cursor:pointer;}
   .node-dot.regular{fill:#3a4768;}
-  .node-dot.end{fill:var(--gold-bright); stroke:var(--seal); stroke-width:2;}
+  .node-dot.end{fill:var(--gold-bright); stroke:var(--seal); stroke-width:2.2;}
   .node-dot.end.pulse-idle{animation: idlePulse 3s ease-in-out infinite;}
   @keyframes idlePulse{0%,100%{opacity:1;} 50%{opacity:0.55;}}
   .node-dot.selected{fill:var(--seal); stroke:var(--ink);}
@@ -88,11 +88,21 @@
   .node-hit{fill:transparent; cursor:pointer;}
 
   .label-halo{fill:var(--chart-bg); stroke:var(--chart-bg); stroke-width:5; stroke-linejoin:round; pointer-events:none; transition: fill 0.3s ease;}
-  .node-label{font-family:'Inter',sans-serif; font-size:9.5px; font-weight:600; fill:var(--ink-quiet); pointer-events:none; transition: all 0.25s ease;}
-  .node-label.end{fill:var(--ink-soft); font-weight:700;}
-  .node-label.selected{fill:var(--ink); font-weight:700; font-size:10.5px;}
+  .node-label{font-family:'Inter',sans-serif; font-size:10.5px; font-weight:600; fill:var(--ink-soft); pointer-events:none; transition: all 0.25s ease;}
+  .node-label.end{fill:var(--ink); font-weight:700;}
+  .node-label.selected{fill:var(--ink); font-weight:700; font-size:11.5px;}
   .node-label.down, .node-label.up{fill:var(--ink); font-weight:700;}
   .node-label.dim{opacity:0.28;}
+
+  /* Tooltip */
+  .node-tooltip{
+    position:absolute; display:none; z-index:30; max-width:240px;
+    background:var(--bg-hover); border:1px solid var(--line-default); border-radius:8px;
+    padding:10px 12px; font-size:12px; line-height:1.5; color:var(--ink-soft);
+    box-shadow:0 6px 16px var(--card-shadow); pointer-events:none;
+  }
+  .node-tooltip .tt-name{font-family:'Cormorant Garamond',serif; font-weight:700; font-size:15px; color:var(--gold); margin-bottom:3px;}
+  .node-tooltip.visible{display:block;}
 
   .pulse-down{fill:var(--seal);}
   .pulse-up{fill:var(--verdigris);}
@@ -146,6 +156,7 @@
   <div class="board">
     <div class="chart-frame">
       <div class="chart-scroll"><svg id="chart" xmlns="http://www.w3.org/2000/svg"></svg></div>
+      <div class="node-tooltip" id="nodeTooltip"></div>
       <div class="legend">
         <div class="legend-item"><span class="dot-swatch" style="background:#DCD2B4;"></span> Node</div>
         <div class="legend-item"><span class="dot-swatch" style="background:var(--gold-bright); box-shadow:0 0 0 1.5px var(--seal);"></span> End node</div>
@@ -335,6 +346,85 @@ const EXTERNAL_OUT = {
 
 const TYPE_LABEL = {end:"End node", inland:"Inland node", inlandsea:"Inland sea node", regular:"Coastal node"};
 
+const NODE_FACTS = {
+  englishChannel: "The richest end node in the game. Controlling it means every trade route in Western Europe eventually pays you.",
+  genoa: "The Mediterranean end node. A favorite for tall Italian playthroughs — Venice's eternal rival.",
+  venice: "The eastern end node. Trade from the Levant, Balkans, and beyond settles here — if the Ottomans don't take it first.",
+  champagne: "The inland crossroads of Europe. Its value flows to both the English Channel and Genoa, splitting based on trade power.",
+  lubeck: "The Baltic trade hub. Whoever controls Lübeck controls the wealth of Northern Europe.",
+  northSea: "Feeds the English Channel. A key node for anyone playing in Scandinavia or the British Isles.",
+  valencia: "The gateway between the Mediterranean and the Atlantic. Spain's early trade ambitions run through here.",
+  alexandria: "The spice gateway. Trade from the Red Sea and India enters the Mediterranean through Alexandria.",
+  ragusa: "The Balkan trade hub. Venice and the Ottomans fight over this node for centuries.",
+  tunis: "The Barbary Coast node. Pirates, privateers, and Mediterranean trade all pass through here.",
+  wien: "The Austrian capital's node. Inland trade from the Danube flows through Wien toward Venice.",
+  rheinland: "The Rhine trade route. Feeds both Champagne and Lübeck, making it a contested German node.",
+  balticSea: "The Baltic's wealth flows to Lübeck. Controlling it is key for any Baltic power.",
+  saxony: "The German interior node. Feeds Lübeck and the Rheinland.",
+  bordeaux: "The French Atlantic node. Wine and colonial goods flow through Bordeaux to Champagne.",
+  sevilla: "The Spanish Atlantic node. New World treasure arrives here before flowing to Valencia and Genoa.",
+  aleppo: "The Levantine trade hub. Silk and spices from the East enter the Mediterranean through Aleppo.",
+  constantinople: "The crossroads of East and West. Controlling it means controlling the trade between Europe and Asia.",
+  krakow: "The Polish trade hub. Feeds the Baltic and the German interior.",
+  pest: "The Hungarian node. Trade from the Balkans flows through Pest toward Wien and Krakow.",
+  whiteSea: "The Russian Arctic node. Feeds the North Sea through the long route around Scandinavia.",
+  novgorod: "The Russian trade hub. Furs and forest goods flow from Novgorod to the Baltic.",
+  kiev: "The Ukrainian node. Feeds Novgorod, Krakow, and the Crimean coast.",
+  crimea: "The Black Sea node. Trade from the steppe and the Caucasus flows through Crimea.",
+  basra: "The Persian Gulf node. Spices from India enter the Middle East through Basra.",
+  persia: "The Persian interior. Feeds Aleppo, Astrakhan, and the Gulf.",
+  kazan: "The Volga node. Feeds Novgorod and the Siberian routes.",
+  astrakhan: "The Caspian node. Trade from Central Asia flows through Astrakhan.",
+  hormuz: "The Strait of Hormuz. One of the most valuable choke points in the game.",
+  amazonas: "The Amazon river node. Feeds Brazil and the Caribbean.",
+  australia: "The far southern node. Trade from the Pacific settles here before flowing to the Moluccas.",
+  beijing: "The Chinese capital's node. The Mandate of Heaven's trade flows through Beijing.",
+  bengal: "The richest node in Asia. The Ganges delta is a trade powerhouse.",
+  brazil: "The New World's sugar colony. Feeds the Ivory Coast and the Caribbean.",
+  burma: "The Southeast Asian interior. Feeds Bengal and Siam.",
+  california: "The Pacific coast node. Feeds Mexico and the Polynesian Triangle.",
+  canton: "The southern Chinese port. The center of the China trade.",
+  capeOfGoodHope: "The tip of Africa. Controlling it means controlling the route between Europe and Asia.",
+  caribbean: "The New World's treasure hub. Sugar, gold, and silver all flow through the Caribbean.",
+  coromandel: "The eastern Indian coast. Feeds the Cape and the Gulf of Aden.",
+  chengdu: "The Sichuan node. Feeds Burma and Canton.",
+  chesapeakeBay: "The American colonial node. Tobacco and cotton flow to the English Channel.",
+  congo: "The African interior. Feeds the Ivory Coast.",
+  cuiaba: "The Brazilian interior. Feeds the Amazon and the Rio de la Plata.",
+  deccan: "The southern Indian plateau. Feeds Coromandel and Gujarat.",
+  doab: "The northern Indian heartland. Feeds Deccan and Lahore.",
+  ethiopia: "The Horn of Africa. Feeds Alexandria and the Gulf of Aden.",
+  girin: "The Manchurian node. Feeds Beijing, Nippon, and Siberia.",
+  greatLakes: "The African Great Lakes. Feeds the Congo.",
+  gujarat: "The western Indian coast. A key node for the Indian Ocean trade.",
+  gulfOfAden: "The gateway between the Indian Ocean and the Red Sea. Piracy and spice trade collide here.",
+  gulfOfStLawrence: "The Canadian node. Feeds Bordeaux and the North Sea.",
+  hangzhou: "The Chinese coastal node. Feeds Beijing and Malacca.",
+  hudsonBay: "The fur trade node. Feeds the Gulf of St. Lawrence and California.",
+  ivoryCoast: "The West African node. Gold, slaves, and ivory flow from here to Europe and the New World.",
+  katsina: "The Sahel node. Feeds Ethiopia, Timbuktu, and Tunis.",
+  lahore: "The Punjab node. Feeds Gujarat, Persia, and Samarkand.",
+  lhasa: "The Tibetan node. Feeds Bengal, Chengdu, and Lahore.",
+  lima: "The Peruvian node. Silver from the Andes flows through Lima.",
+  malacca: "The spice gateway of Southeast Asia. One of the most contested nodes in the game.",
+  mexico: "The Aztec treasure node. Silver and gold flow from Mexico to the Caribbean.",
+  mississippiRiver: "The American interior. Feeds the Caribbean and Ohio.",
+  theMoluccas: "The Spice Islands. The source of the world's cloves and nutmeg.",
+  nippon: "The Japanese node. Feeds Hangzhou and the Polynesian Triangle.",
+  ohio: "The American frontier. Feeds the Chesapeake and the Gulf of St. Lawrence.",
+  panama: "The isthmus node. The shortcut between the Atlantic and Pacific.",
+  patagonia: "The southern tip of South America. Feeds Cuiaba and the Rio de la Plata.",
+  philippines: "The archipelago node. Feeds the Moluccas and the Polynesian Triangle.",
+  polynesianTriangle: "The vast Pacific node. Connects the Americas, Asia, and Australia.",
+  rioDeLaPlata: "The River Plate node. Feeds Brazil.",
+  rioGrande: "The northern Mexican node. Feeds California, Mexico, and the Mississippi.",
+  safi: "The Moroccan node. Feeds Sevilla.",
+  samarkand: "The Silk Road hub. Trade from China and Persia meets in Samarkand.",
+  siam: "The Thai node. Feeds Canton and Malacca.",
+  siberia: "The vast Russian east. Feeds Kazan and Samarkand.",
+  timbuktu: "The legendary Saharan city. Gold from West Africa flows through Timbuktu.",
+};
+
 const STARTER_IDS = ["englishChannel","genoa","venice","champagne","bordeaux","lubeck","balticSea","valencia","sevilla","alexandria","constantinople","ragusa"];
 const EUROPE_IDS = ["englishChannel","genoa","venice","champagne","lubeck","northSea","valencia","alexandria","ragusa","tunis","wien","rheinland","balticSea","saxony","bordeaux","sevilla","aleppo","constantinople","krakow","pest","whiteSea","novgorod","kiev","crimea","basra","persia","kazan","astrakhan","hormuz"];
 const GLOBAL_IDS = ALL_NODE_DEFS.map(n=>n.id);
@@ -427,6 +517,21 @@ function edgePath(a,b){
 }
 
 let edgeEls={}, nodeEls={};
+const nodeTooltip = document.getElementById("nodeTooltip");
+const chartFrame = document.querySelector(".chart-frame");
+const chartScroll = document.querySelector(".chart-scroll");
+
+function hideTooltip(){ nodeTooltip.classList.remove("visible"); }
+function moveTooltip(e){
+  const rect = chartFrame.getBoundingClientRect();
+  let x = e.clientX - rect.left + 14;
+  let y = e.clientY - rect.top + 14;
+  // Keep tooltip inside the frame
+  if(x + 260 > rect.width) x = Math.max(0, e.clientX - rect.left - 260);
+  if(y + 120 > rect.height) y = Math.max(0, e.clientY - rect.top - 120);
+  nodeTooltip.style.left = x + "px";
+  nodeTooltip.style.top = y + "px";
+}
 
 function renderGraph(g){
   svg.setAttribute("viewBox", `0 0 ${g.width} ${g.height}`);
@@ -434,6 +539,7 @@ function renderGraph(g){
   svg.setAttribute("height", g.height);
   svg.innerHTML = "";
   edgeEls = {}; nodeEls = {}; selected = null;
+  hideTooltip();
 
   g.edges.forEach(([a,b]) => {
     const path = document.createElementNS(svgNS,"path");
@@ -449,7 +555,7 @@ function renderGraph(g){
     const gEl = document.createElementNS(svgNS,"g");
     const dot = document.createElementNS(svgNS,"circle");
     dot.setAttribute("cx",n.x); dot.setAttribute("cy",n.y);
-    dot.setAttribute("r", n.type==="end" ? 8 : 5.5);
+    dot.setAttribute("r", n.type==="end" ? 10 : 7);
     dot.setAttribute("class","node-dot "+(n.type==="end"?"end pulse-idle":"regular"));
     gEl.appendChild(dot);
 
@@ -473,9 +579,19 @@ function renderGraph(g){
     gEl.appendChild(label);
 
     const hit = document.createElementNS(svgNS,"circle");
-    hit.setAttribute("cx",n.x); hit.setAttribute("cy",n.y); hit.setAttribute("r",14);
+    hit.setAttribute("cx",n.x); hit.setAttribute("cy",n.y); hit.setAttribute("r",20);
     hit.setAttribute("class","node-hit");
     hit.addEventListener("click", () => selectNode(n.id));
+    // Hover tooltip with a fun fact
+    hit.addEventListener("mouseenter", () => {
+      const fact = NODE_FACTS[n.id];
+      if(fact){
+        nodeTooltip.innerHTML = `<div class="tt-name">${n.name}</div><div>${fact}</div>`;
+        nodeTooltip.classList.add("visible");
+      }
+    });
+    hit.addEventListener("mousemove", moveTooltip);
+    hit.addEventListener("mouseleave", hideTooltip);
     gEl.appendChild(hit);
 
     svg.appendChild(gEl);
@@ -510,7 +626,7 @@ function clearHighlights(){
     els.dot.classList.remove("selected","down","up","dim");
     els.label.classList.remove("selected","down","up","dim");
     const n = graph.byId[id];
-    els.dot.setAttribute("r", n.type==="end" ? 8 : 5.5);
+    els.dot.setAttribute("r", n.type==="end" ? 10 : 7);
   });
 }
 
