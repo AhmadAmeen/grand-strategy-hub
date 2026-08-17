@@ -61,8 +61,8 @@
   .back-link{font-size:12.5px; font-weight:600; color:#a0a8b8; transition:color 0.2s ease;}
   .back-link:hover{color:#d4a94e;}
 
-  .board{display:grid; grid-template-columns: minmax(0,1fr) 300px; gap:16px; margin-top:16px;}
-  @media (max-width: 860px){.board{grid-template-columns: 1fr;}}
+  .board{display:grid; grid-template-columns: 1fr; gap:16px; margin-top:16px;}
+  .panel{max-width:720px;}
 
   .chart-frame{position:relative; background:var(--chart-bg); border:1px solid var(--line-default); border-radius:8px; box-shadow: 0 4px 14px var(--card-shadow); overflow:hidden;}
   .chart-scroll{overflow-x:auto; overflow-y:hidden;}
@@ -102,7 +102,7 @@
   .swatch{width:16px; height:3px; border-radius:2px; display:inline-block;}
   .dot-swatch{width:9px; height:9px; border-radius:50%; display:inline-block; border:1px solid #fff; box-shadow:0 0 0 1px #ccc;}
 
-  .panel{background:var(--chart-bg); border:1px solid var(--line-default); border-radius:8px; box-shadow: 0 4px 14px var(--card-shadow); padding:18px; align-self:start; position:sticky; top:12px;}
+  .panel{background:var(--chart-bg); border:1px solid var(--line-default); border-radius:8px; box-shadow: 0 4px 14px var(--card-shadow); padding:18px;}
   .panel-empty{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--ink-soft); line-height:1.5;}
   .panel-title-row{display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin-bottom:4px;}
   .panel-title{font-family:'Cormorant Garamond',serif; font-weight:700; font-size:23px;}

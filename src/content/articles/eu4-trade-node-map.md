@@ -7,7 +7,7 @@ category: "EU4"
 slug: "eu4-trade-node-map"
 ---
 
-<!-- PERSONAL INTRO PLACEHOLDER: Write 2-3 paragraphs here about why you built this tool. Something like: "I've played EU4 for years and trade always confused new players, so I built this..." -->
+I've played EU4 for years, and trade has always confused me. For a long time I wasn't able to take full advantage of it simply because I never had a clear understanding of how it worked. I built this tool to give you a quick visual guide — the kind of thing I wish I'd had — to help you see how trade actually flows, in a much easier and more intuitive way.
 
 ## What Are Trade Nodes?
 
