@@ -1,23 +1,23 @@
 ---
 title: "Europa Universalis 5 Diplomacy Guide: Alliances and Rivals"
-description: "EU5 diplomacy guide — how alliances, rivals, and diplomatic reputation work, and how to navigate the diplomatic web to your advantage."
+description: "EU5 diplomacy guide: how alliances, rivals, and diplomatic reputation work, and how to navigate the diplomatic web to your advantage."
 keywords: "eu5 diplomacy guide"
 date: 2026-08-04
 category: "EU5"
 slug: "eu5-diplomacy-guide"
 ---
 
-Diplomacy is the art of getting what you want without fighting for it — and in EU5, it's just as important as it was in EU4. Alliances, rivals, and diplomatic reputation shape every campaign. Here's how to master the diplomatic game.
+Diplomacy is the art of getting what you want without fighting for it. In EU5, it's just as important as it was in EU4. Alliances, rivals, and diplomatic reputation shape every campaign. Here's how to master the diplomatic game.
 
 ## The Basics of EU5 Diplomacy
 
 The core diplomatic systems in EU5 are similar to EU4: you can form alliances, declare rivals, improve relations, and negotiate peace deals. The fundamentals carry over, but there are new tools and adjustments that reward careful attention.
 
 **The key diplomatic actions:**
-- **Alliances** — mutual defense pacts. Your ally will join your wars, and you'll join theirs.
-- **Rivals** — nations you're competing with. Rivalry gives you bonuses but makes the rival hostile.
-- **Improve relations** — send diplomats to improve your standing with other nations.
-- **Royal marriages** — for monarchies, a marriage creates a bond between two nations.
+- **Alliances:** mutual defense pacts. Your ally will join your wars, and you'll join theirs.
+- **Rivals:** nations you're competing with. Rivalry gives you bonuses but makes the rival hostile.
+- **Improve relations:** send diplomats to improve your standing with other nations.
+- **Royal marriages:** for monarchies, a marriage creates a bond between two nations.
 
 ## Alliances: Your Shield
 
@@ -35,7 +35,7 @@ Alliances are the most important diplomatic tool. A strong alliance can deter at
 
 ## Rivals: Your Enemies
 
-Rivals are nations you're competing with. Declaring a rival gives you bonuses — power projection, prestige, and a casus belli — but it also makes that nation hostile toward you.
+Rivals are nations you're competing with. Declaring a rival gives you bonuses: power projection, prestige, and a casus belli. But it also makes that nation hostile toward you.
 
 **How to choose rivals:**
 - **Pick rivals you can beat.** A rival you can't defeat is just a source of stress.
@@ -50,9 +50,9 @@ Rivals are nations you're competing with. Declaring a rival gives you bonuses �
 
 Your diplomatic reputation is how other nations perceive you. It's affected by:
 
-- **Aggressive expansion** — conquering too much territory makes other nations fear you
-- **Broken truces** — breaking a truce damages your reputation severely
-- **Diplomatic actions** — some actions improve your reputation, others damage it
+- **Aggressive expansion:** conquering too much territory makes other nations fear you
+- **Broken truces:** breaking a truce damages your reputation severely
+- **Diplomatic actions:** some actions improve your reputation, others damage it
 
 **The key insight:** A good reputation makes diplomacy easier. Nations are more willing to ally you, less likely to form coalitions against you, and more likely to accept your peace deals.
 
@@ -64,10 +64,8 @@ Your diplomatic reputation is how other nations perceive you. It's affected by:
 
 **3. Use your rivals strategically.** Rivalry is a tool, not just a declaration. Use it to gain bonuses and justify wars.
 
-**4. Think about who benefits.** When you go to war, think about who gains and who loses — not just you, but your allies and rivals. Diplomacy is a web, and every action ripples through it.
-
-## The Bottom Line
+**4. Think about who benefits.** When you go to war, think about who gains and who loses, not just you, but your allies and rivals. Diplomacy is a web, and every action ripples through it.
 
 Diplomacy in EU5 is about building relationships and managing your reputation. Strong alliances protect you, well-chosen rivals give you bonuses, and a good reputation makes everything easier.
 
-The key is to be **proactive**, not reactive. Don't wait for diplomatic opportunities to come to you — create them. Improve relations before you need allies, declare rivals before you need the bonuses, and manage your reputation before it becomes a problem.
+The key is to be proactive, not reactive. Don't wait for diplomatic opportunities to come to you. Create them. Improve relations before you need allies, declare rivals before you need the bonuses, and manage your reputation before it becomes a problem.
