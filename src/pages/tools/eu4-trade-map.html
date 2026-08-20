@@ -440,6 +440,9 @@ function buildGraph(idSet){
 
   const tier = {};
   let frontier = nodes.filter(n=>n.type==="end").map(n=>n.id);
+  if(frontier.length === 0){
+    frontier = nodes.filter(n => (outgoing[n.id] || []).length === 0).map(n=>n.id);
+  }
   frontier.forEach(id=>tier[id]=0);
   let d=0;
   while(frontier.length){
@@ -456,7 +459,8 @@ function buildGraph(idSet){
   const byTier = {};
   for(let t=0;t<=maxTier;t++) byTier[t]=[];
   nodes.forEach(n => byTier[tier[n.id]].push(n.id));
-  byTier[0] = nodes.filter(n=>n.type==="end").map(n=>n.id).sort();
+  const tier0Ends = nodes.filter(n=>n.type==="end").map(n=>n.id).sort();
+  if(tier0Ends.length) byTier[0] = tier0Ends;
 
   const ROW_GAP = 42, MARGIN_Y = 40;
   const maxCount = Math.max(...Object.values(byTier).map(a=>a.length), 1);
