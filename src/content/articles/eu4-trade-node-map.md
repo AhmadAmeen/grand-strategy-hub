@@ -60,7 +60,7 @@ Click any node to see:
 - Which end node it eventually reaches
 - How the value splits across routes
 
-The map has three views: Simple (12 key nodes), Europe (29 nodes), and Global (74 nodes), plus a search function to jump to any node by name.
+The map has four views: Simple (12 key nodes), Europe (29 nodes), Asia (31 nodes), and Global (78 nodes), plus a search function to jump to any node by name.
 
 Trade in EU4 is a network, not a line. Value flows from provinces into nodes, splits across every available route, and eventually settles in one of three end nodes. The nations that understand this network, and position themselves to capture the flow, are the ones that build the richest empires.
 
