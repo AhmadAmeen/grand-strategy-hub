@@ -144,7 +144,7 @@
       <div class="mode-toggle">
         <button id="btn-simple" class="active">Simple (12)</button>
         <button id="btn-europe">Europe (29)</button>
-        <button id="btn-global">Global (74)</button>
+        <button id="btn-global">Global (78)</button>
       </div>
       <div class="search-wrap">
         <input type="text" id="search-input" class="search-input" placeholder="Search any node, e.g. Malacca...">
@@ -171,7 +171,7 @@
   </div>
 
   <footer>
-    Nodes are placed left to right based on how many steps they are from an end node, not their real location on the map. The Global view covers 74 of the game's 80 total nodes, drawn directly from the game's own node data. Four nodes (Xi'an, Yumen, Zambezi, Zanzibar) are left out for now because their full connections couldn't be confirmed yet, rather than guessing at them. A node marked <em>"+ also fed by"</em> or <em>"+ also flows to"</em> connects to one of those four. Based on the standard node network in patch 1.37.
+    Nodes are placed left to right based on how many steps they are from an end node, not their real location on the map. The Global view covers 78 of the game's 85 total nodes, drawn directly from the game's own node data. The remaining nodes aren't mapped yet, rather than guessing at their connections. Based on the standard node network in patch 1.37.
   </footer>
 </div>
 
@@ -253,6 +253,10 @@ const ALL_NODE_DEFS = [
   {id:"siam", name:"Siam", type:"regular"},
   {id:"siberia", name:"Siberia", type:"inland"},
   {id:"timbuktu", name:"Timbuktu", type:"inland"},
+  {id:"xian", name:"Xi'an", type:"inland"},
+  {id:"yumen", name:"Yumen", type:"inland"},
+  {id:"zambezi", name:"Zambezi", type:"inland"},
+  {id:"zanzibar", name:"Zanzibar", type:"regular"},
 ];
 
 const ALL_EDGES = [
@@ -269,11 +273,11 @@ const ALL_EDGES = [
   ["burma","bengal"],["burma","siam"],
   ["california","girin"],["california","mexico"],["california","mississippiRiver"],["california","polynesianTriangle"],
   ["canton","hangzhou"],["canton","malacca"],["canton","philippines"],
-  ["capeOfGoodHope","ivoryCoast"],
+  ["capeOfGoodHope","ivoryCoast"],["zanzibar","capeOfGoodHope"],
   ["caribbean","bordeaux"],["caribbean","chesapeakeBay"],["caribbean","sevilla"],
   ["coromandel","capeOfGoodHope"],["coromandel","gujarat"],["coromandel","gulfOfAden"],
   ["champagne","englishChannel"],["champagne","genoa"],
-  ["chengdu","burma"],["chengdu","canton"],
+  ["chengdu","burma"],["chengdu","canton"],["chengdu","xian"],
   ["chesapeakeBay","englishChannel"],["chesapeakeBay","gulfOfStLawrence"],
   ["constantinople","ragusa"],
   ["crimea","constantinople"],["crimea","kiev"],["crimea","pest"],
@@ -282,24 +286,26 @@ const ALL_EDGES = [
   ["doab","deccan"],["doab","lahore"],
   ["ethiopia","alexandria"],["ethiopia","gulfOfAden"],
   ["girin","beijing"],["girin","nippon"],["girin","siberia"],
+  ["xian","beijing"],["xian","yumen"],
+  ["beijing","yumen"],
   ["greatLakes","congo"],
-  ["gujarat","gulfOfAden"],["gujarat","hormuz"],
-  ["gulfOfAden","alexandria"],["gulfOfAden","hormuz"],
+  ["gujarat","gulfOfAden"],["gujarat","hormuz"],["gujarat","zanzibar"],
+  ["gulfOfAden","alexandria"],["gulfOfAden","hormuz"],["gulfOfAden","zanzibar"],
   ["gulfOfStLawrence","bordeaux"],["gulfOfStLawrence","northSea"],
-  ["hangzhou","beijing"],["hangzhou","malacca"],
+  ["hangzhou","beijing"],["hangzhou","malacca"],["hangzhou","xian"],
   ["hormuz","basra"],
   ["hudsonBay","gulfOfStLawrence"],["hudsonBay","california"],
   ["ivoryCoast","bordeaux"],["ivoryCoast","caribbean"],["ivoryCoast","englishChannel"],["ivoryCoast","sevilla"],
   ["katsina","ethiopia"],["katsina","timbuktu"],["katsina","tunis"],
   ["kazan","novgorod"],
   ["kiev","krakow"],["kiev","novgorod"],
-  ["congo","ivoryCoast"],
+  ["congo","ivoryCoast"],["congo","zambezi"],["zambezi","zanzibar"],
   ["krakow","balticSea"],["krakow","saxony"],["krakow","wien"],
   ["lahore","gujarat"],["lahore","persia"],["lahore","samarkand"],
   ["lhasa","bengal"],["lhasa","chengdu"],["lhasa","lahore"],
   ["lima","panama"],["lima","polynesianTriangle"],
   ["lubeck","englishChannel"],
-  ["malacca","bengal"],["malacca","capeOfGoodHope"],
+  ["malacca","bengal"],["malacca","capeOfGoodHope"],["malacca","zanzibar"],
   ["mexico","caribbean"],["mexico","panama"],["mexico","polynesianTriangle"],
   ["mississippiRiver","caribbean"],["mississippiRiver","ohio"],
   ["theMoluccas","malacca"],
@@ -318,7 +324,7 @@ const ALL_EDGES = [
   ["rioDeLaPlata","brazil"],
   ["rioGrande","california"],["rioGrande","mexico"],["rioGrande","mississippiRiver"],
   ["safi","sevilla"],
-  ["samarkand","astrakhan"],["samarkand","persia"],
+  ["samarkand","astrakhan"],["samarkand","persia"],["yumen","samarkand"],
   ["saxony","lubeck"],["saxony","rheinland"],
   ["sevilla","valencia"],
   ["siam","canton"],["siam","malacca"],
@@ -330,19 +336,8 @@ const ALL_EDGES = [
   ["wien","saxony"],["wien","rheinland"],["wien","venice"],
 ];
 
-const EXTERNAL_IN = {
-  capeOfGoodHope: ["Zanzibar"],
-  samarkand: ["Yumen"],
-};
-const EXTERNAL_OUT = {
-  beijing: ["Yumen"],
-  chengdu: ["Xi'an"],
-  hangzhou: ["Xi'an"],
-  congo: ["Zambezi"],
-  gujarat: ["Zanzibar"],
-  gulfOfAden: ["Zanzibar"],
-  greatLakes: ["Zanzibar"],
-};
+const EXTERNAL_IN = {};
+const EXTERNAL_OUT = {};
 
 const TYPE_LABEL = {end:"End node", inland:"Inland node", inlandsea:"Inland sea node", regular:"Coastal node"};
 
