@@ -144,6 +144,7 @@
       <div class="mode-toggle">
         <button id="btn-simple" class="active">Simple (12)</button>
         <button id="btn-europe">Europe (29)</button>
+        <button id="btn-asia">Asia (31)</button>
         <button id="btn-global">Global (78)</button>
       </div>
       <div class="search-wrap">
@@ -422,6 +423,7 @@ const NODE_FACTS = {
 
 const STARTER_IDS = ["englishChannel","genoa","venice","champagne","bordeaux","lubeck","balticSea","valencia","sevilla","alexandria","constantinople","ragusa"];
 const EUROPE_IDS = ["englishChannel","genoa","venice","champagne","lubeck","northSea","valencia","alexandria","ragusa","tunis","wien","rheinland","balticSea","saxony","bordeaux","sevilla","aleppo","constantinople","krakow","pest","whiteSea","novgorod","kiev","crimea","basra","persia","kazan","astrakhan","hormuz"];
+const ASIA_IDS = ["beijing","hangzhou","canton","chengdu","xian","yumen","girin","nippon","bengal","coromandel","deccan","doab","gujarat","lahore","lhasa","burma","siam","malacca","philippines","theMoluccas","samarkand","siberia","kazan","astrakhan","persia","basra","hormuz","zanzibar","gulfOfAden","zambezi","aleppo"];
 const GLOBAL_IDS = ALL_NODE_DEFS.map(n=>n.id);
 
 const svgNS = "http://www.w3.org/2000/svg";
@@ -708,13 +710,14 @@ function renderPanel(id, downNodes){
 
 function switchMode(mode){
   currentMode = mode;
-  const idSet = mode==="simple" ? STARTER_IDS : mode==="europe" ? EUROPE_IDS : GLOBAL_IDS;
+  const idSet = mode==="simple" ? STARTER_IDS : mode==="europe" ? EUROPE_IDS : mode==="asia" ? ASIA_IDS : GLOBAL_IDS;
   graph = buildGraph(idSet);
   renderGraph(graph);
 }
 
 document.getElementById("btn-simple").addEventListener("click", (e) => { setActiveBtn(e.target); switchMode("simple"); });
 document.getElementById("btn-europe").addEventListener("click", (e) => { setActiveBtn(e.target); switchMode("europe"); });
+document.getElementById("btn-asia").addEventListener("click", (e) => { setActiveBtn(e.target); switchMode("asia"); });
 document.getElementById("btn-global").addEventListener("click", (e) => { setActiveBtn(e.target); switchMode("global"); });
 function setActiveBtn(btn){
   document.querySelectorAll(".mode-toggle button").forEach(b=>b.classList.remove("active"));
